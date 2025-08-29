@@ -1,0 +1,2028 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxLab Extractor Pro - Sistema Professionale Stock Luxury</title>
+    
+    <!-- Font Premium -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --oro-luxlab: #C9A961;
+            --oro-chiaro: #E4D4A1;
+            --nero-profondo: #1A1A1A;
+            --grigio-elegante: #2C2C2C;
+            --bianco-perla: #FDFCF8;
+            --verde-successo: #27AE60;
+            --rosso-alert: #E74C3C;
+            --blu-premium: #2E4057;
+            --gradient-oro: linear-gradient(135deg, #C9A961 0%, #E4D4A1 50%, #C9A961 100%);
+            --gradient-premium: linear-gradient(135deg, #2E4057 0%, #3E5871 100%);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bianco-perla);
+            min-height: 100vh;
+            color: var(--nero-profondo);
+        }
+
+        /* Header Premium */
+        .header-premium {
+            background: var(--gradient-premium);
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-luxlab {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-oro);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            animation: pulse-oro 2s infinite;
+        }
+
+        @keyframes pulse-oro {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(201, 169, 97, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(201, 169, 97, 0.7); }
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--oro-luxlab);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-premium {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Bottoni Premium */
+        .btn-premium {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-oro {
+            background: var(--gradient-oro);
+            color: var(--nero-profondo);
+            border-color: var(--oro-luxlab);
+        }
+
+        .btn-oro:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 169, 97, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--oro-luxlab);
+            border-color: var(--oro-luxlab);
+        }
+
+        .btn-outline:hover {
+            background: var(--oro-luxlab);
+            color: var(--nero-profondo);
+        }
+
+        /* Container Principale */
+        .container-principale {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 40px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--nero-profondo), var(--grigio-elegante));
+            border-radius: 30px;
+            padding: 80px;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(201, 169, 97, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 900;
+            background: var(--gradient-oro);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            color: var(--oro-chiaro);
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .hero-feature {
+            color: var(--oro-chiaro);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-feature::before {
+            content: '✓';
+            background: var(--gradient-oro);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 1px solid rgba(201, 169, 97, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-oro);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(201, 169, 97, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--nero-profondo);
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: var(--grigio-elegante);
+            line-height: 1.8;
+        }
+
+        /* Pannello Estrazione */
+        .pannello-estrazione {
+            background: white;
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            margin-bottom: 60px;
+            border: 2px solid var(--oro-luxlab);
+            position: relative;
+        }
+
+        .pannello-estrazione::after {
+            content: 'PROFESSIONAL';
+            position: absolute;
+            top: -12px;
+            right: 40px;
+            background: var(--gradient-oro);
+            color: var(--nero-profondo);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .pannello-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .pannello-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            background: var(--gradient-oro);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .pannello-subtitle {
+            color: var(--grigio-elegante);
+            font-size: 16px;
+        }
+
+        .form-gruppo {
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--nero-profondo);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 12px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #E0E0E0;
+            border-radius: 15px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: var(--bianco-perla);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--oro-luxlab);
+            box-shadow: 0 0 20px rgba(201, 169, 97, 0.1);
+        }
+
+        .ricarico-presets {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--oro-luxlab);
+            border-radius: 20px;
+            background: transparent;
+            color: var(--oro-luxlab);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 12px;
+        }
+
+        .preset-btn:hover {
+            background: var(--oro-luxlab);
+            color: white;
+        }
+
+        .btn-estrazione {
+            width: 100%;
+            padding: 20px;
+            background: var(--gradient-oro);
+            color: var(--nero-profondo);
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-estrazione::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-estrazione:hover::before {
+            width: 300%;
+            height: 300%;
+        }
+
+        .btn-estrazione:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(201, 169, 97, 0.3);
+        }
+
+        .btn-estrazione:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Progress Container */
+        .progress-container {
+            display: none;
+            margin-top: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .progress-container.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .progress-status {
+            font-size: 14px;
+            color: var(--grigio-elegante);
+            font-weight: 600;
+        }
+
+        .progress-percentage {
+            font-size: 18px;
+            color: var(--oro-luxlab);
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 40px;
+            background: #F5F5F5;
+            border-radius: 50px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-oro);
+            width: 0%;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Risultati */
+        .risultati-container {
+            display: none;
+            background: white;
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            margin-bottom: 60px;
+        }
+
+        .risultati-container.active {
+            display: block;
+            animation: slideUp 0.5s;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .risultati-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .risultati-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: var(--nero-profondo);
+        }
+
+        .risultati-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--gradient-oro);
+            padding: 20px 30px;
+            border-radius: 15px;
+            color: var(--nero-profondo);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .tabella-risultati {
+            overflow-x: auto;
+        }
+
+        .tabella-risultati table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .tabella-risultati th {
+            background: var(--gradient-premium);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 12px;
+            position: sticky;
+            top: 0;
+        }
+
+        .tabella-risultati td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #F0F0F0;
+            color: var(--grigio-elegante);
+        }
+
+        .tabella-risultati tr:hover {
+            background: rgba(201, 169, 97, 0.05);
+        }
+
+        .tabella-risultati tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            margin: 80px 0;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .pricing-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            background: var(--gradient-oro);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .pricing-subtitle {
+            color: var(--grigio-elegante);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 30px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+
+        .pricing-card.consigliato {
+            border-color: var(--oro-luxlab);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.consigliato::before {
+            content: 'CONSIGLIATO';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-oro);
+            color: var(--nero-profondo);
+            padding: 8px 30px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+        }
+
+        .pricing-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--nero-profondo);
+            margin-bottom: 20px;
+        }
+
+        .pricing-price {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--oro-luxlab);
+            margin-bottom: 10px;
+        }
+
+        .pricing-price span {
+            font-size: 24px;
+            vertical-align: super;
+        }
+
+        .pricing-price small {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--grigio-elegante);
+        }
+
+        .pricing-period {
+            color: var(--grigio-elegante);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 15px 0;
+            border-bottom: 1px solid #F0F0F0;
+            color: var(--grigio-elegante);
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--oro-luxlab);
+            font-weight: bold;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li strong {
+            color: var(--oro-luxlab);
+        }
+
+        .pricing-button {
+            width: 100%;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid var(--oro-luxlab);
+        }
+
+        .pricing-card.consigliato .pricing-button {
+            background: var(--gradient-oro);
+            color: var(--nero-profondo);
+            border: none;
+        }
+
+        .pricing-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--gradient-premium);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 80px 0;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stats-item {
+            position: relative;
+        }
+
+        .stats-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--oro-luxlab);
+            margin-bottom: 10px;
+        }
+
+        .stats-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* Modal */
+        .modal-auth {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-auth.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 60px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            position: relative;
+            animation: modalSlide 0.3s;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 32px;
+            cursor: pointer;
+            color: var(--grigio-elegante);
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            color: var(--oro-luxlab);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            background: var(--gradient-oro);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            color: var(--grigio-elegante);
+            font-size: 14px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #E0E0E0;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 20px;
+            position: relative;
+            color: var(--grigio-elegante);
+            font-size: 12px;
+        }
+
+        /* Footer */
+        .footer-premium {
+            background: linear-gradient(135deg, var(--nero-profondo), var(--grigio-elegante));
+            color: white;
+            padding: 80px 60px 40px;
+            margin-top: 100px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--oro-luxlab);
+            margin-bottom: 25px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--oro-luxlab);
+            transform: translateX(5px);
+            display: inline-block;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            background: var(--gradient-oro);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .footer-description {
+            color: rgba(255,255,255,0.6);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--gradient-oro);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-copyright {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        .footer-payments {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .payment-icon {
+            background: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: var(--nero-profondo);
+        }
+
+        /* Notifiche */
+        .notifica {
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .notifica.show {
+            display: block;
+            animation: notificationSlide 0.3s;
+        }
+
+        @keyframes notificationSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .notifica::before {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        .notifica.successo {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--verde-successo);
+            border: 2px solid var(--verde-successo);
+        }
+
+        .notifica.successo::before {
+            content: '✓';
+        }
+
+        .notifica.errore {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--rosso-alert);
+            border: 2px solid var(--rosso-alert);
+        }
+
+        .notifica.errore::before {
+            content: '✗';
+        }
+
+        .notifica.info {
+            background: rgba(201, 169, 97, 0.1);
+            color: var(--oro-luxlab);
+            border: 2px solid var(--oro-luxlab);
+        }
+
+        .notifica.info::before {
+            content: 'ℹ';
+        }
+
+        #creditiContainer {
+            background: rgba(201, 169, 97, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container-principale {
+                padding: 0 30px;
+            }
+            
+            .pricing-card.consigliato {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-premium {
+                padding: 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .brand-name {
+                font-size: 24px;
+            }
+
+            .hero-section {
+                padding: 40px 20px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pannello-estrazione {
+                padding: 40px 20px;
+            }
+
+            .pannello-title {
+                font-size: 28px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.consigliato {
+                transform: scale(1);
+            }
+
+            .footer-premium {
+                padding: 40px 20px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .modal-content {
+                padding: 40px 20px;
+                width: 95%;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tabella-risultati {
+                font-size: 14px;
+            }
+
+            .tabella-risultati th,
+            .tabella-risultati td {
+                padding: 12px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .btn-premium {
+                padding: 10px 20px;
+                font-size: 11px;
+            }
+
+            .pricing-price {
+                font-size: 36px;
+            }
+
+            .stats-number {
+                font-size: 32px;
+            }
+
+            .nav-premium {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .ricarico-presets {
+                flex-direction: column;
+            }
+
+            .preset-btn {
+                width: 100%;
+            }
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(201, 169, 97, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--oro-luxlab);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--nero-profondo);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Premium -->
+    <header class="header-premium">
+        <div class="logo-container">
+            <div class="logo-luxlab">💎</div>
+            <h1 class="brand-name">LUXLAB EXTRACTOR</h1>
+        </div>
+        <nav class="nav-premium">
+            <span id="userInfo" style="color: var(--oro-luxlab); margin-right: 20px; display: none;">
+                <span id="userEmail"></span> | 
+                <span id="creditiContainer">
+                    💎 Crediti: <strong id="userCredits">0</strong>
+                </span>
+            </span>
+            <button class="btn-premium btn-outline" onclick="mostraLogin()" id="btnLogin">Accedi</button>
+            <button class="btn-premium btn-oro" onclick="mostraRegistrazione()" id="btnRegister">Registrati</button>
+            <button class="btn-premium btn-outline" id="btnLogout" style="display: none;" onclick="logout()">Esci</button>
+        </nav>
+    </header>
+
+    <!-- Container Principale -->
+    <div class="container-principale">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h2 class="hero-title">Stock Extractor Professional</h2>
+            <p class="hero-subtitle">SISTEMA DI ESTRAZIONE CATALOGHI E STOCK LIST</p>
+            <div class="hero-features">
+                <div class="hero-feature">Estrazione Anti-Bot</div>
+                <div class="hero-feature">Excel Professionale</div>
+                <div class="hero-feature">Immagini HD</div>
+                <div class="hero-feature">Ricarico Automatico</div>
+            </div>
+            <button class="btn-premium btn-oro" style="font-size: 16px; padding: 18px 50px; margin-top: 40px;" onclick="scrollToExtractor()">
+                🚀 INIZIA ESTRAZIONE
+            </button>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Estrazione Completa</h3>
+                <p class="feature-description">Estrae tutti i prodotti da qualsiasi e-commerce con prezzi e dettagli completi</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3 class="feature-title">Ricarico Automatico</h3>
+                <p class="feature-description">Applica automaticamente il tuo markup sui prezzi estratti</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📸</div>
+                <h3 class="feature-title">Catalogo Excel</h3>
+                <p class="feature-description">Genera cataloghi professionali in formato Excel con immagini HD</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">Anti-Detection</h3>
+                <p class="feature-description">Sistema avanzato per bypassare protezioni e limitazioni</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Ultra Veloce</h3>
+                <p class="feature-description">Elaborazione parallela per massima velocità di estrazione</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3 class="feature-title">Aggiornamenti</h3>
+                <p class="feature-description">Aggiornamenti automatici prezzi e disponibilità</p>
+            </div>
+        </section>
+
+        <!-- Pannello Estrazione -->
+        <section class="pannello-estrazione" id="pannelloEstrazione">
+            <div class="pannello-header">
+                <h2 class="pannello-title">Centro di Estrazione Stock</h2>
+                <p class="pannello-subtitle">Inserisci l'URL del catalogo online da estrarre</p>
+            </div>
+
+            <form id="formEstrazione" onsubmit="event.preventDefault(); avviaEstrazione();">
+                <div class="form-gruppo">
+                    <label class="form-label">URL del Catalogo/Stock List</label>
+                    <input type="url" class="form-input" id="urlPortale" 
+                           placeholder="https://stock.example.com/products" required>
+                    <small style="color: var(--grigio-elegante); display: block; margin-top: 10px;">
+                        Inserisci l'URL della pagina con i prodotti da estrarre
+                    </small>
+                </div>
+
+                <div class="form-gruppo">
+                    <label class="form-label">💰 RICARICO DA APPLICARE (%)</label>
+                    <input type="number" class="form-input" id="ricarico" 
+                           placeholder="50" value="50" min="0" max="500" 
+                           style="text-align: center; font-size: 20px; font-weight: bold;">
+                    <div class="ricarico-presets">
+                        <button type="button" class="preset-btn" onclick="setRicarico(30)">30%</button>
+                        <button type="button" class="preset-btn" onclick="setRicarico(50)">50%</button>
+                        <button type="button" class="preset-btn" onclick="setRicarico(75)">75%</button>
+                        <button type="button" class="preset-btn" onclick="setRicarico(100)">100%</button>
+                        <button type="button" class="preset-btn" onclick="setRicarico(150)">150%</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-estrazione" id="btnEstrai">
+                    🚀 AVVIA ESTRAZIONE CATALOGO
+                </button>
+
+                <div class="notifica" id="notifica"></div>
+
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-info">
+                        <span class="progress-status" id="progressStatus">Inizializzazione...</span>
+                        <span class="progress-percentage" id="progressPercentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressBar"></div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Container Risultati -->
+        <section class="risultati-container" id="risultatiContainer">
+            <div class="risultati-header">
+                <h2 class="risultati-title">Risultati Estrazione</h2>
+                <button class="btn-premium btn-oro" onclick="esportaExcel()">
+                    📥 SCARICA EXCEL
+                </button>
+            </div>
+            
+            <div class="risultati-stats">
+                <div class="stat-card">
+                    <div class="stat-label">Prodotti Totali</div>
+                    <div class="stat-value" id="statTotale">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Ricarico Applicato</div>
+                    <div class="stat-value" id="statRicarico">0%</div>
+                </div>
+            </div>
+            
+            <div class="tabella-risultati">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Codice</th>
+                            <th>Prodotto</th>
+                            <th>Brand</th>
+                            <th>Prezzo Originale</th>
+                            <th>Prezzo Outlet</th>
+                            <th>Sconto</th>
+                            <th>Quantità</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabellaRisultati"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stats-item">
+                    <div class="stats-number">10.000+</div>
+                    <div class="stats-label">Prodotti Estratti</div>
+                </div>
+                <div class="stats-item">
+                    <div class="stats-number">500+</div>
+                    <div class="stats-label">Clienti Soddisfatti</div>
+                </div>
+                <div class="stats-item">
+                    <div class="stats-number">99.9%</div>
+                    <div class="stats-label">Uptime</div>
+                </div>
+                <div class="stats-item">
+                    <div class="stats-number">24/7</div>
+                    <div class="stats-label">Supporto</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Pricing -->
+        <section class="pricing-section">
+            <div class="pricing-header">
+                <h2 class="pricing-title">Piani di Abbonamento</h2>
+                <p class="pricing-subtitle">Scegli il piano più adatto al tuo volume di lavoro</p>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="pricing-name">Singola Estrazione</h3>
+                    <div class="pricing-price"><span>€</span>149</div>
+                    <div class="pricing-period">uso singolo</div>
+                    <ul class="pricing-features">
+                        <li><strong>1 Estrazione</strong> singola</li>
+                        <li>Fino a <strong>1000 prodotti</strong></li>
+                        <li>Export Excel base</li>
+                        <li>Ricarico personalizzabile</li>
+                        <li>Validità 24 ore</li>
+                        <li>Supporto email</li>
+                    </ul>
+                    <button class="btn-premium btn-outline pricing-button" onclick="acquistaPiano('base')">
+                        ACQUISTA ORA
+                    </button>
+                </div>
+
+                <div class="pricing-card consigliato">
+                    <h3 class="pricing-name">Professional</h3>
+                    <div class="pricing-price"><span>€</span>399</div>
+                    <div class="pricing-period">al mese</div>
+                    <ul class="pricing-features">
+                        <li>Estrazioni <strong>ILLIMITATE</strong></li>
+                        <li><strong>5000 prodotti</strong> per estrazione</li>
+                        <li>Export Excel multipli</li>
+                        <li>Aggiornamenti automatici</li>
+                        <li>Elaborazione prioritaria</li>
+                        <li>Supporto dedicato 24/7</li>
+                        <li>API personalizzate</li>
+                    </ul>
+                    <button class="pricing-button" onclick="acquistaPiano('professional')">
+                        ATTIVA ORA
+                    </button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3 class="pricing-name">Enterprise</h3>
+                    <div class="pricing-price"><span>€</span>1999</div>
+                    <div class="pricing-period">all'anno</div>
+                    <ul class="pricing-features">
+                        <li><strong>TUTTO ILLIMITATO</strong></li>
+                        <li>Prodotti <strong>ILLIMITATI</strong></li>
+                        <li><strong>IMMAGINI HD</strong> renderizzate</li>
+                        <li>Excel professionali completi</li>
+                        <li>Server dedicato ultra-veloce</li>
+                        <li>API personalizzate</li>
+                        <li>Account manager VIP</li>
+                        <li>White Label disponibile</li>
+                    </ul>
+                    <button class="btn-premium btn-oro pricing-button" onclick="acquistaPiano('enterprise')">
+                        ACQUISTA ORA
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-premium">
+        <div class="container-principale">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-logo">LuxLab</div>
+                    <p class="footer-description">
+                        Sistema professionale di estrazione cataloghi e stock list per il settore luxury e fashion.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon">f</a>
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">ig</a>
+                        <a href="#" class="social-icon">x</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Prodotti</h3>
+                    <ul>
+                        <li><a href="#" class="footer-link">Stock Extractor</a></li>
+                        <li><a href="#" class="footer-link">API Developer</a></li>
+                        <li><a href="#" class="footer-link">Excel Generator</a></li>
+                        <li><a href="#" class="footer-link">Image Processor</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Azienda</h3>
+                    <ul>
+                        <li><a href="#" class="footer-link">Chi Siamo</a></li>
+                        <li><a href="#" class="footer-link">Carriere</a></li>
+                        <li><a href="#" class="footer-link">Partner</a></li>
+                        <li><a href="#" class="footer-link">Contatti</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Supporto</h3>
+                    <ul>
+                        <li><a href="#" class="footer-link">Documentazione</a></li>
+                        <li><a href="#" class="footer-link">FAQ</a></li>
+                        <li><a href="#" class="footer-link">Status Sistema</a></li>
+                        <li><a href="#" class="footer-link">Assistenza 24/7</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 LuxLab S.r.l. - P.IVA 07308130488 - Tutti i diritti riservati
+                </div>
+                <div class="footer-payments">
+                    <span class="payment-icon">VISA</span>
+                    <span class="payment-icon">Mastercard</span>
+                    <span class="payment-icon">PayPal</span>
+                    <span class="payment-icon">Stripe</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Auth -->
+    <div class="modal-auth" id="modalAuth">
+        <div class="modal-content">
+            <span class="modal-close" onclick="chiudiModal()">×</span>
+            
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Accedi al tuo Account</h2>
+                <p class="modal-subtitle">Accedi per continuare con LuxLab Extractor</p>
+            </div>
+
+            <!-- Form Login -->
+            <form id="formLogin" style="display: block;" onsubmit="event.preventDefault(); effettuaLogin();">
+                <div class="form-gruppo">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="loginEmail" required>
+                </div>
+                <div class="form-gruppo">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="loginPassword" required>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; gap: 5px;">
+                        <input type="checkbox" id="rememberMe">
+                        <span style="font-size: 14px;">Ricordami</span>
+                    </label>
+                    <a href="#" style="color: var(--oro-luxlab); font-size: 14px;">Password dimenticata?</a>
+                </div>
+                
+                <button type="submit" class="btn-premium btn-oro" style="width: 100%;">
+                    ACCEDI
+                </button>
+                
+                <div class="divider">
+                    <span>OPPURE</span>
+                </div>
+                
+                <div class="social-login">
+                    <button type="button" class="social-btn">
+                        <span>G</span> Google
+                    </button>
+                    <button type="button" class="social-btn">
+                        <span>f</span> Facebook
+                    </button>
+                </div>
+                
+                <p style="text-align: center; margin-top: 20px;">
+                    Non hai un account? 
+                    <a href="#" onclick="switchToRegister(); return false;" style="color: var(--oro-luxlab);">Registrati gratis</a>
+                </p>
+            </form>
+
+            <!-- Form Registrazione -->
+            <form id="formRegistrazione" style="display: none;" onsubmit="event.preventDefault(); effettuaRegistrazione();">
+                <div class="form-gruppo">
+                    <label class="form-label">Nome</label>
+                    <input type="text" class="form-input" id="regNome" required>
+                </div>
+                <div class="form-gruppo">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="regEmail" required>
+                </div>
+                <div class="form-gruppo">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="regPassword" required>
+                    <small style="color: var(--grigio-elegante);">Minimo 6 caratteri</small>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <label style="display: flex; align-items: flex-start; gap: 8px;">
+                        <input type="checkbox" required style="margin-top: 3px;">
+                        <span style="font-size: 13px; color: var(--grigio-elegante);">
+                            Accetto i <a href="#" style="color: var(--oro-luxlab);">Termini di Servizio</a> 
+                            e la <a href="#" style="color: var(--oro-luxlab);">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-premium btn-oro" style="width: 100%;">
+                    REGISTRATI GRATIS
+                </button>
+                
+                <div style="background: rgba(201, 169, 97, 0.1); padding: 15px; border-radius: 10px; margin-top: 20px;">
+                    <strong style="color: var(--oro-luxlab);">🎁 Bonus Registrazione</strong><br>
+                    <small style="color: var(--grigio-elegante);">
+                        Ricevi 1 credito gratuito per testare il sistema (10 prodotti)
+                    </small>
+                </div>
+                
+                <p style="text-align: center; margin-top: 20px;">
+                    Hai già un account? 
+                    <a href="#" onclick="switchToLogin(); return false;" style="color: var(--oro-luxlab);">Accedi</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Configurazione
+        const API_URL = window.location.origin + '/api';
+        let authToken = localStorage.getItem('authToken') || '';
+        let currentFile = null;
+        let utenteCorrente = null;
+        let currentJobId = null;
+        let statusCheckInterval = null;
+
+        // Init
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 LuxLab Stock Extractor Ready');
+            aggiornaInterfacciaUtente();
+            
+            if (authToken) {
+                verificaSessione();
+            }
+            
+            // Test connessione
+            testConnection();
+        });
+
+        async function testConnection() {
+            try {
+                const response = await fetch(`${API_URL}/health`);
+                if (response.ok) {
+                    console.log('✅ Server connesso');
+                } else {
+                    console.warn('⚠️ Server risponde con errore');
+                }
+            } catch (error) {
+                console.error('❌ Server non raggiungibile:', error);
+                mostraNotifica('errore', '⚠️ Server non raggiungibile. Verifica la connessione.');
+            }
+        }
+
+        async function avviaEstrazione() {
+            const url = document.getElementById('urlPortale').value.trim();
+            const ricarico = parseInt(document.getElementById('ricarico').value) || 50;
+
+            if (!url) {
+                mostraNotifica('errore', 'Inserisci un URL valido');
+                return;
+            }
+
+            // Reset UI
+            document.getElementById('progressContainer').classList.add('active');
+            document.getElementById('btnEstrai').disabled = true;
+            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('progressPercentage').textContent = '0%';
+            document.getElementById('progressStatus').textContent = 'Inizializzazione...';
+            
+            try {
+                const response = await fetch(`${API_URL}/extract`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken || 'demo-token'}`
+                    },
+                    body: JSON.stringify({ url, ricarico })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentJobId = data.job_id;
+                    mostraNotifica('info', `Piano ${data.piano} - Max ${data.max_products} prodotti`);
+                    startStatusCheck();
+                } else {
+                    throw new Error(data.error || 'Estrazione fallita');
+                }
+            } catch (error) {
+                document.getElementById('progressContainer').classList.remove('active');
+                document.getElementById('btnEstrai').disabled = false;
+                mostraNotifica('errore', error.message);
+            }
+        }
+
+        function startStatusCheck() {
+            if (statusCheckInterval) {
+                clearInterval(statusCheckInterval);
+            }
+            
+            statusCheckInterval = setInterval(checkStatus, 1000);
+        }
+
+        async function checkStatus() {
+            if (!currentJobId) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/status/${currentJobId}`);
+                const data = await response.json();
+                
+                if (data.success && data.status) {
+                    const status = data.status;
+                    
+                    // Aggiorna progress
+                    document.getElementById('progressBar').style.width = status.progress + '%';
+                    document.getElementById('progressPercentage').textContent = status.progress + '%';
+                    document.getElementById('progressStatus').textContent = status.messaggio || 'In elaborazione...';
+                    
+                    if (status.fase === 'completato') {
+                        clearInterval(statusCheckInterval);
+                        currentFile = status.file;
+                        mostraRisultati(status.prodotti || [], status.totale || 0);
+                        mostraNotifica('successo', status.messaggio);
+                        document.getElementById('progressContainer').classList.remove('active');
+                        document.getElementById('btnEstrai').disabled = false;
+                        
+                        // Aggiorna crediti
+                        if (authToken) {
+                            verificaSessione();
+                        }
+                    } else if (status.fase === 'errore') {
+                        clearInterval(statusCheckInterval);
+                        throw new Error(status.messaggio);
+                    }
+                }
+            } catch (error) {
+                clearInterval(statusCheckInterval);
+                document.getElementById('progressContainer').classList.remove('active');
+                document.getElementById('btnEstrai').disabled = false;
+                mostraNotifica('errore', 'Errore controllo status: ' + error.message);
+            }
+        }
+
+        function mostraRisultati(prodotti, totale) {
+            const container = document.getElementById('risultatiContainer');
+            const tabella = document.getElementById('tabellaRisultati');
+            const ricarico = document.getElementById('ricarico').value;
+            
+            container.classList.add('active');
+            document.getElementById('statTotale').textContent = totale;
+            document.getElementById('statRicarico').textContent = ricarico + '%';
+            
+            tabella.innerHTML = '';
+            
+            prodotti.forEach(prodotto => {
+                const riga = document.createElement('tr');
+                riga.innerHTML = `
+                    <td><strong>${prodotto.codice || 'N/A'}</strong></td>
+                    <td>${prodotto.descrizione || 'Prodotto'}</td>
+                    <td>${prodotto.brand || 'BRAND'}</td>
+                    <td>${prodotto.prezzoListino || '€0'}</td>
+                    <td style="color: var(--verde-successo); font-weight: bold;">${prodotto.prezzoOutlet || '€0'}</td>
+                    <td><span style="color: var(--rosso-alert);">${prodotto.sconto || '-'}</span></td>
+                    <td>${prodotto.quantita || 0}</td>
+                `;
+                tabella.appendChild(riga);
+            });
+
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function esportaExcel() {
+            if (!currentFile) {
+                mostraNotifica('errore', 'Nessun file da scaricare');
+                return;
+            }
+            window.open(`${API_URL}/download/${currentFile}?token=${authToken || 'demo-token'}`, '_blank');
+            mostraNotifica('successo', '📥 Download Excel avviato!');
+        }
+
+        async function effettuaLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                mostraNotifica('errore', 'Compila tutti i campi');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    authToken = data.token;
+                    localStorage.setItem('authToken', authToken);
+                    utenteCorrente = data.user;
+                    aggiornaInterfacciaUtente();
+                    chiudiModal();
+                    mostraNotifica('successo', '✅ Accesso effettuato!');
+                } else {
+                    mostraNotifica('errore', data.error || 'Credenziali non valide');
+                }
+            } catch (error) {
+                console.error('Errore login:', error);
+                mostraNotifica('errore', 'Errore di connessione');
+            }
+        }
+
+        async function effettuaRegistrazione() {
+            const nome = document.getElementById('regNome').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            if (!nome || !email || !password) {
+                mostraNotifica('errore', 'Compila tutti i campi');
+                return;
+            }
+
+            if (password.length < 6) {
+                mostraNotifica('errore', 'Password minimo 6 caratteri');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email, password })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    authToken = data.token;
+                    localStorage.setItem('authToken', authToken);
+                    utenteCorrente = data.user;
+                    aggiornaInterfacciaUtente();
+                    chiudiModal();
+                    mostraNotifica('successo', '🎉 Registrazione completata! Hai 1 credito gratuito (10 prodotti).');
+                } else {
+                    mostraNotifica('errore', data.error || 'Errore registrazione');
+                }
+            } catch (error) {
+                console.error('Errore registrazione:', error);
+                mostraNotifica('errore', 'Errore di connessione');
+            }
+        }
+
+        async function verificaSessione() {
+            if (!authToken) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/user/profile`, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                
+                const data = await response.json();
+                if (data.success && data.user) {
+                    utenteCorrente = data.user;
+                    aggiornaInterfacciaUtente();
+                } else {
+                    authToken = '';
+                    localStorage.removeItem('authToken');
+                    utenteCorrente = null;
+                    aggiornaInterfacciaUtente();
+                }
+            } catch (error) {
+                console.log('Sessione non valida');
+            }
+        }
+
+        function aggiornaInterfacciaUtente() {
+            if (utenteCorrente) {
+                document.getElementById('userInfo').style.display = 'block';
+                document.getElementById('userEmail').textContent = utenteCorrente.email;
+                
+                // Gestione crediti
+                if (utenteCorrente.piano === 'free' || utenteCorrente.piano === 'demo') {
+                    document.getElementById('creditiContainer').style.display = 'inline-block';
+                    document.getElementById('userCredits').textContent = utenteCorrente.crediti || '0';
+                    
+                    if (utenteCorrente.crediti === 0) {
+                        mostraNotifica('info', '⚠️ Crediti esauriti! Acquista un piano per continuare.');
+                    }
+                } else {
+                    document.getElementById('creditiContainer').innerHTML = 
+                        `✨ Piano <strong>${utenteCorrente.piano.toUpperCase()}</strong>`;
+                }
+                
+                document.getElementById('btnLogin').style.display = 'none';
+                document.getElementById('btnRegister').style.display = 'none';
+                document.getElementById('btnLogout').style.display = 'inline-block';
+            } else {
+                document.getElementById('userInfo').style.display = 'none';
+                document.getElementById('btnLogin').style.display = 'inline-block';
+                document.getElementById('btnRegister').style.display = 'inline-block';
+                document.getElementById('btnLogout').style.display = 'none';
+            }
+        }
+
+        function logout() {
+            authToken = '';
+            utenteCorrente = null;
+            localStorage.removeItem('authToken');
+            aggiornaInterfacciaUtente();
+            mostraNotifica('info', 'Logout effettuato');
+            location.reload();
+        }
+
+        function acquistaPiano(piano) {
+            if (!utenteCorrente) {
+                mostraRegistrazione();
+                mostraNotifica('info', '📝 Registrati per acquistare un piano');
+                return;
+            }
+            
+            const piani = {
+                'base': '€149 - 1000 prodotti singola estrazione',
+                'professional': '€399/mese - Estrazioni illimitate',
+                'enterprise': '€1999/anno - Tutto illimitato con immagini HD'
+            };
+            
+            mostraNotifica('info', `🚀 Piano ${piano.toUpperCase()}: ${piani[piano]}`);
+            
+            // Redirect a checkout
+            setTimeout(() => {
+                window.location.href = `${API_URL}/create-checkout?piano=${piano}&token=${authToken}`;
+            }, 2000);
+        }
+
+        function setRicarico(valore) {
+            document.getElementById('ricarico').value = valore;
+        }
+
+        function scrollToExtractor() {
+            document.getElementById('pannelloEstrazione').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function mostraLogin() {
+            document.getElementById('modalAuth').classList.add('active');
+            switchToLogin();
+        }
+
+        function mostraRegistrazione() {
+            document.getElementById('modalAuth').classList.add('active');
+            switchToRegister();
+        }
+
+        function chiudiModal() {
+            document.getElementById('modalAuth').classList.remove('active');
+        }
+
+        function switchToLogin() {
+            document.getElementById('formLogin').style.display = 'block';
+            document.getElementById('formRegistrazione').style.display = 'none';
+            document.getElementById('modalTitle').textContent = 'Accedi al tuo Account';
+        }
+
+        function switchToRegister() {
+            document.getElementById('formLogin').style.display = 'none';
+            document.getElementById('formRegistrazione').style.display = 'block';
+            document.getElementById('modalTitle').textContent = 'Crea il tuo Account';
+        }
+
+        function mostraNotifica(tipo, messaggio) {
+            const notifica = document.getElementById('notifica');
+            notifica.className = `notifica ${tipo} show`;
+            notifica.innerHTML = messaggio;
+            setTimeout(() => notifica.classList.remove('show'), 5000);
+        }
+    </script>
+</body>
+</html>
