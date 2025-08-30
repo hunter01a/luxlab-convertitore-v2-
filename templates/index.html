@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuxLab Extractor Pro - Sistema Professionale Stock Luxury</title>
+    <title>LUXLAB Convertitore - Sistema B2B Stock Management Professional</title>
     
     <!-- Font Premium -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     
     <!-- Stripe -->
     <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe('pk_live_51RZ7koDFq5tpJ2dVCN9QMOhjrueMjs905Jh5iZCKYG7Axhn1HxK489yIXTnLPLo5a3qz2WMIpYNJWBgeKsUSVbTP00ZWEJEEeT');
+    </script>
     
     <style>
         * {
@@ -19,498 +22,324 @@
         }
 
         :root {
-            --oro-luxlab: #C9A961;
-            --oro-chiaro: #E4D4A1;
-            --nero-profondo: #1A1A1A;
-            --grigio-elegante: #2C2C2C;
-            --bianco-perla: #FDFCF8;
-            --verde-successo: #27AE60;
-            --rosso-alert: #E74C3C;
-            --blu-premium: #2E4057;
-            --gradient-oro: linear-gradient(135deg, #C9A961 0%, #E4D4A1 50%, #C9A961 100%);
-            --gradient-premium: linear-gradient(135deg, #2E4057 0%, #3E5871 100%);
+            --primary: #0A0E27;
+            --secondary: #1A1F3A;
+            --accent: #4F46E5;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --light: #F9FAFB;
+            --dark: #111827;
+            --gradient: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            --gradient-gold: linear-gradient(135deg, #F6D365 0%, #FDA085 100%);
+            --gradient-ai: linear-gradient(135deg, #00D4FF 0%, #0099FF 100%);
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: var(--bianco-perla);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #0A0E27 0%, #1A1F3A 100%);
             min-height: 100vh;
-            color: var(--nero-profondo);
+            color: #E5E7EB;
         }
 
-        /* Header Premium */
-        .header-premium {
-            background: var(--gradient-premium);
-            padding: 30px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.2);
-            position: sticky;
+        /* Header */
+        .header {
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 2rem;
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logo-luxlab {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-oro);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            animation: pulse-oro 2s infinite;
-        }
-
-        @keyframes pulse-oro {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(201, 169, 97, 0.5); }
-            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(201, 169, 97, 0.7); }
-        }
-
-        .brand-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--oro-luxlab);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .nav-premium {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        /* Bottoni Premium */
-        .btn-premium {
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-oro {
-            background: var(--gradient-oro);
-            color: var(--nero-profondo);
-            border-color: var(--oro-luxlab);
-        }
-
-        .btn-oro:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(201, 169, 97, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--oro-luxlab);
-            border-color: var(--oro-luxlab);
-        }
-
-        .btn-outline:hover {
-            background: var(--oro-luxlab);
-            color: var(--nero-profondo);
-        }
-
-        /* Container Principale */
-        .container-principale {
+        .header-container {
             max-width: 1400px;
-            margin: 60px auto;
-            padding: 0 40px;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(135deg, var(--nero-profondo), var(--grigio-elegante));
-            border-radius: 30px;
-            padding: 80px;
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(201, 169, 97, 0.1) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 64px;
-            font-weight: 900;
-            background: var(--gradient-oro);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-subtitle {
-            color: var(--oro-chiaro);
-            font-size: 20px;
-            font-weight: 300;
-            letter-spacing: 3px;
-            margin-bottom: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-features {
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 50px;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .hero-feature {
-            color: var(--oro-chiaro);
-            font-size: 14px;
+        .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1rem;
+            text-decoration: none;
         }
 
-        .hero-feature::before {
-            content: '✓';
-            background: var(--gradient-oro);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: bold;
-            font-size: 18px;
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
         }
 
-        /* Features Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            border: 1px solid rgba(201, 169, 97, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient-oro);
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(201, 169, 97, 0.2);
-        }
-
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .feature-title {
+        .logo-text {
             font-family: 'Playfair Display', serif;
             font-size: 24px;
-            font-weight: 700;
-            color: var(--nero-profondo);
-            margin-bottom: 15px;
-        }
-
-        .feature-description {
-            color: var(--grigio-elegante);
-            line-height: 1.8;
-        }
-
-        /* Pannello Estrazione */
-        .pannello-estrazione {
-            background: white;
-            border-radius: 30px;
-            padding: 60px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            margin-bottom: 60px;
-            border: 2px solid var(--oro-luxlab);
-            position: relative;
-        }
-
-        .pannello-estrazione::after {
-            content: 'PROFESSIONAL';
-            position: absolute;
-            top: -12px;
-            right: 40px;
-            background: var(--gradient-oro);
-            color: var(--nero-profondo);
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        .pannello-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .pannello-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 42px;
-            background: var(--gradient-oro);
+            font-weight: 900;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
         }
 
-        .pannello-subtitle {
-            color: var(--grigio-elegante);
-            font-size: 16px;
-        }
-
-        .form-gruppo {
-            margin-bottom: 30px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--nero-profondo);
+        .logo-subtitle {
+            font-size: 10px;
+            color: #9CA3AF;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 12px;
+            letter-spacing: 2px;
+            margin-top: 2px;
         }
 
-        .form-input {
-            width: 100%;
-            padding: 18px;
-            border: 2px solid #E0E0E0;
-            border-radius: 15px;
-            font-size: 15px;
-            transition: all 0.3s;
-            background: var(--bianco-perla);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--oro-luxlab);
-            box-shadow: 0 0 20px rgba(201, 169, 97, 0.1);
-        }
-
-        .ricarico-presets {
+        /* User Menu */
+        .user-menu {
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .preset-btn {
-            padding: 8px 16px;
-            border: 1px solid var(--oro-luxlab);
+        .user-info {
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .user-info.active {
+            display: flex;
+        }
+
+        .user-plan {
+            padding: 0.25rem 0.75rem;
+            background: var(--gradient);
             border-radius: 20px;
-            background: transparent;
-            color: var(--oro-luxlab);
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
-        .preset-btn:hover {
-            background: var(--oro-luxlab);
+        .btn-auth {
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: #9CA3AF;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-register {
+            background: var(--gradient);
             color: white;
         }
 
-        .btn-estrazione {
-            width: 100%;
-            padding: 20px;
-            background: var(--gradient-oro);
-            color: var(--nero-profondo);
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
+        .btn-logout {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
-        .btn-estrazione::before {
+        .btn-auth:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 100px auto 50px;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .hero::before {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
             transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
+            filter: blur(100px);
+            z-index: -1;
         }
 
-        .btn-estrazione:hover::before {
-            width: 300%;
-            height: 300%;
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #A78BFA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .btn-estrazione:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(201, 169, 97, 0.3);
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #9CA3AF;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .btn-estrazione:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        /* Converter Box */
+        .converter-box {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
-        /* Progress Container */
-        .progress-container {
-            display: none;
-            margin-top: 30px;
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .progress-container.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .progress-info {
+        .converter-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .progress-status {
-            font-size: 14px;
-            color: var(--grigio-elegante);
-            font-weight: 600;
-        }
-
-        .progress-percentage {
-            font-size: 18px;
-            color: var(--oro-luxlab);
+        .converter-title {
+            font-size: 1.5rem;
             font-weight: 700;
+            color: #FFFFFF;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 40px;
-            background: #F5F5F5;
+        .converter-badge {
+            background: var(--gradient);
+            padding: 0.5rem 1.5rem;
             border-radius: 50px;
-            overflow: hidden;
-            position: relative;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: white;
+            animation: pulse 2s infinite;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient-oro);
-            width: 0%;
-            transition: width 0.5s ease;
-            position: relative;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,0.3),
-                transparent
-            );
-            animation: shimmer 2s infinite;
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 2rem;
         }
 
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Risultati */
-        .risultati-container {
-            display: none;
-            background: white;
-            border-radius: 30px;
-            padding: 60px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            margin-bottom: 60px;
-        }
-
-        .risultati-container.active {
+        .form-label {
             display: block;
-            animation: slideUp 0.5s;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: #E5E7EB;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        @keyframes slideUp {
-            from { 
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #6B7280;
+        }
+
+        /* URL Input Group */
+        .url-input-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .url-input {
+            flex: 1;
+        }
+
+        .btn-analyze {
+            padding: 1rem 2rem;
+            background: rgba(79, 70, 229, 0.2);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-analyze:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-analyze.loading {
+            pointer-events: none;
+            background: var(--gradient-ai);
+            border-color: transparent;
+            color: white;
+        }
+
+        /* AI Analysis Box */
+        .ai-analysis-box {
+            display: none;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 255, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-analysis-box.active {
+            display: block;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -518,1510 +347,1860 @@
             }
         }
 
-        .risultati-header {
+        .ai-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            gap: 20px;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
         }
 
-        .risultati-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            color: var(--nero-profondo);
-        }
-
-        .risultati-stats {
+        .ai-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-ai);
+            border-radius: 50%;
             display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            animation: rotate 3s linear infinite;
         }
 
-        .stat-card {
-            background: var(--gradient-oro);
-            padding: 20px 30px;
-            border-radius: 15px;
-            color: var(--nero-profondo);
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .stat-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
-        }
-
-        .stat-value {
-            font-size: 28px;
+        .ai-title {
+            font-size: 1.125rem;
             font-weight: 700;
-            margin-top: 5px;
+            color: #00D4FF;
         }
 
-        .tabella-risultati {
-            overflow-x: auto;
+        .ai-status {
+            font-size: 0.875rem;
+            color: #9CA3AF;
+            margin-bottom: 1rem;
         }
 
-        .tabella-risultati table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            background: white;
-            border-radius: 20px;
+        .ai-progress {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .ai-progress-bar {
+            height: 100%;
+            background: var(--gradient-ai);
+            border-radius: 8px;
+            width: 0%;
+            transition: width 1s ease;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        .ai-steps {
+            display: none;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .ai-steps.active {
+            display: flex;
+        }
+
+        .ai-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #9CA3AF;
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+
+        .ai-step.active {
+            opacity: 1;
+            color: #00D4FF;
+        }
+
+        .ai-step.completed {
+            opacity: 1;
+            color: #10B981;
+        }
+
+        .ai-step-icon {
+            width: 20px;
+            height: 20px;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        /* Strategy Suggestion */
+        .strategy-suggestion {
+            display: none;
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            animation: slideDown 0.5s ease;
+        }
+
+        .strategy-suggestion.active {
+            display: block;
+        }
+
+        .suggestion-title {
+            font-weight: 600;
+            color: var(--success);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .suggestion-text {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+        }
+
+        .confidence-meter {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .confidence-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
             overflow: hidden;
         }
 
-        .tabella-risultati th {
-            background: var(--gradient-premium);
-            color: white;
-            padding: 20px;
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 12px;
-            position: sticky;
-            top: 0;
+        .confidence-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 3px;
+            transition: width 1s ease;
         }
 
-        .tabella-risultati td {
-            padding: 18px 20px;
-            border-bottom: 1px solid #F0F0F0;
-            color: var(--grigio-elegante);
-        }
-
-        .tabella-risultati tr:hover {
-            background: rgba(201, 169, 97, 0.05);
-        }
-
-        .tabella-risultati tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Pricing Section */
-        .pricing-section {
-            margin: 80px 0;
-        }
-
-        .pricing-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .pricing-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            background: var(--gradient-oro);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        .pricing-subtitle {
-            color: var(--grigio-elegante);
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .pricing-grid {
+        /* Strategy Cards */
+        .strategy-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .pricing-card {
-            background: white;
-            border-radius: 30px;
-            padding: 50px 40px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
             transition: all 0.3s;
             position: relative;
-            border: 2px solid transparent;
         }
 
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        .strategy-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-3px);
         }
 
-        .pricing-card.consigliato {
-            border-color: var(--oro-luxlab);
-            transform: scale(1.05);
+        .strategy-card.selected {
+            background: rgba(79, 70, 229, 0.1);
+            border-color: var(--accent);
         }
 
-        .pricing-card.consigliato::before {
-            content: 'CONSIGLIATO';
+        .strategy-card.suggested {
+            border-color: var(--success);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+        }
+
+        .strategy-card.suggested::after {
+            content: '🤖 CONSIGLIATO AI';
             position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient-oro);
-            color: var(--nero-profondo);
-            padding: 8px 30px;
-            border-radius: 50px;
-            font-size: 11px;
+            top: -10px;
+            right: 10px;
+            background: var(--success);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
             font-weight: 700;
-            letter-spacing: 2px;
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); }
-        }
-
-        .pricing-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            color: var(--nero-profondo);
-            margin-bottom: 20px;
-        }
-
-        .pricing-price {
-            font-size: 56px;
-            font-weight: 700;
-            color: var(--oro-luxlab);
-            margin-bottom: 10px;
-        }
-
-        .pricing-price span {
-            font-size: 24px;
-            vertical-align: super;
-        }
-
-        .pricing-price small {
-            font-size: 18px;
-            font-weight: 400;
-            color: var(--grigio-elegante);
-        }
-
-        .pricing-period {
-            color: var(--grigio-elegante);
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-
-        .pricing-features {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 40px;
-            text-align: left;
-        }
-
-        .pricing-features li {
-            padding: 15px 0;
-            border-bottom: 1px solid #F0F0F0;
-            color: var(--grigio-elegante);
-            position: relative;
-            padding-left: 30px;
-        }
-
-        .pricing-features li::before {
-            content: '✓';
+        .strategy-card.selected::before {
+            content: '✔';
             position: absolute;
-            left: 0;
-            color: var(--oro-luxlab);
+            top: 1rem;
+            right: 1rem;
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             font-weight: bold;
         }
 
-        .pricing-features li:last-child {
-            border-bottom: none;
+        .strategy-name {
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
         }
 
-        .pricing-features li strong {
-            color: var(--oro-luxlab);
+        .strategy-desc {
+            font-size: 0.875rem;
+            color: #9CA3AF;
+            margin-bottom: 0.75rem;
         }
 
-        .pricing-button {
+        .strategy-margin {
+            font-size: 1.25rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Convert Button */
+        .btn-convert {
             width: 100%;
-            padding: 15px;
-            border-radius: 50px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            padding: 1.25rem;
+            background: var(--gradient);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            border: 2px solid var(--oro-luxlab);
-        }
-
-        .pricing-card.consigliato .pricing-button {
-            background: var(--gradient-oro);
-            color: var(--nero-profondo);
-            border: none;
-        }
-
-        .pricing-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
-        }
-
-        /* Stats Section */
-        .stats-section {
-            background: var(--gradient-premium);
-            border-radius: 30px;
-            padding: 60px;
-            margin: 80px 0;
-            color: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            text-align: center;
-        }
-
-        .stats-item {
-            position: relative;
-        }
-
-        .stats-number {
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--oro-luxlab);
-            margin-bottom: 10px;
-        }
-
-        .stats-label {
-            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            opacity: 0.8;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-convert:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-convert:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-convert.processing {
+            background: var(--gradient-ai);
+            pointer-events: none;
+        }
+
+        /* Process Status Box */
+        .process-status-box {
+            display: none;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .process-status-box.active {
+            display: block;
+            animation: slideDown 0.5s ease;
+        }
+
+        .process-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-ai);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .process-phases {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .process-phase {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .process-phase.active {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .process-phase.completed {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .phase-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .phase-icon.spinning {
+            animation: rotate 1s linear infinite;
+        }
+
+        .phase-content {
+            flex: 1;
+        }
+
+        .phase-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .phase-status {
+            font-size: 0.875rem;
+            color: #9CA3AF;
+        }
+
+        .phase-progress {
+            width: 100px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .phase-progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        /* Alert */
+        .alert {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10B981;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+        }
+
+        .alert-info {
+            background: rgba(79, 70, 229, 0.1);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            color: #6366F1;
         }
 
         /* Modal */
-        .modal-auth {
+        .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 10000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(10px);
         }
 
-        .modal-auth.active {
+        .modal.active {
             display: flex;
         }
 
         .modal-content {
-            background: white;
-            border-radius: 30px;
-            padding: 60px;
+            background: var(--secondary);
+            border-radius: 20px;
+            padding: 2.5rem;
             width: 90%;
-            max-width: 500px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            max-width: 450px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             position: relative;
-            animation: modalSlide 0.3s;
-        }
-
-        @keyframes modalSlide {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .modal-close {
             position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 32px;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            color: var(--grigio-elegante);
             transition: all 0.3s;
         }
 
         .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
             transform: rotate(90deg);
-            color: var(--oro-luxlab);
-        }
-
-        .modal-header {
-            text-align: center;
-            margin-bottom: 40px;
         }
 
         .modal-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            background: var(--gradient-oro);
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
         }
 
         .modal-subtitle {
-            color: var(--grigio-elegante);
-            font-size: 14px;
+            color: #9CA3AF;
+            margin-bottom: 2rem;
         }
 
-        .social-login {
+        .auth-tabs {
             display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .social-btn {
+        .auth-tab {
             flex: 1;
-            padding: 12px;
-            border: 1px solid #E0E0E0;
-            border-radius: 10px;
-            background: white;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #9CA3AF;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 14px;
-        }
-
-        .social-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .divider {
             text-align: center;
-            margin: 30px 0;
-            position: relative;
+            font-weight: 600;
         }
 
-        .divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #E0E0E0;
-        }
-
-        .divider span {
-            background: white;
-            padding: 0 20px;
-            position: relative;
-            color: var(--grigio-elegante);
-            font-size: 12px;
-        }
-
-        /* Footer */
-        .footer-premium {
-            background: linear-gradient(135deg, var(--nero-profondo), var(--grigio-elegante));
+        .auth-tab.active {
+            background: var(--gradient);
             color: white;
-            padding: 80px 60px 40px;
-            margin-top: 100px;
+            border-color: transparent;
         }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 60px;
-            margin-bottom: 60px;
+        .trial-banner {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
 
-        .footer-column h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            color: var(--oro-luxlab);
-            margin-bottom: 25px;
+        .trial-banner h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
         }
 
-        .footer-column ul {
-            list-style: none;
-            padding: 0;
+        .trial-banner p {
+            font-size: 0.875rem;
+            opacity: 0.9;
         }
 
-        .footer-column ul li {
-            margin-bottom: 15px;
+        /* Pricing Section */
+        .pricing-section {
+            padding: 4rem 0;
         }
 
-        .footer-link {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: all 0.3s;
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
-        .footer-link:hover {
-            color: var(--oro-luxlab);
-            transform: translateX(5px);
-            display: inline-block;
-        }
-
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 42px;
-            background: var(--gradient-oro);
+        .pricing-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
         }
 
-        .footer-description {
-            color: rgba(255,255,255,0.6);
-            line-height: 1.8;
-            margin-bottom: 30px;
+        .pricing-subtitle {
+            color: #9CA3AF;
+            font-size: 1.125rem;
         }
 
-        .footer-social {
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .pricing-card.featured {
+            background: rgba(79, 70, 229, 0.05);
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: 'PIÙ POPOLARE';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .pricing-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price sup {
+            font-size: 1.5rem;
+        }
+
+        .pricing-period {
+            color: #9CA3AF;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #E5E7EB;
             display: flex;
-            gap: 15px;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .social-icon {
-            width: 40px;
-            height: 40px;
+        .pricing-features li::before {
+            content: '✔';
+            width: 20px;
+            height: 20px;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
             border-radius: 50%;
-            background: rgba(255,255,255,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .social-icon:hover {
-            background: var(--gradient-oro);
-            transform: translateY(-5px);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .footer-copyright {
-            color: rgba(255,255,255,0.6);
-            font-size: 14px;
-        }
-
-        .footer-payments {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .payment-icon {
-            background: white;
-            padding: 5px 10px;
-            border-radius: 5px;
             font-size: 12px;
-            color: var(--nero-profondo);
+            font-weight: bold;
         }
 
-        /* Notifiche */
-        .notifica {
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-            display: none;
-            position: relative;
-            padding-left: 50px;
+        .pricing-features li.disabled {
+            opacity: 0.5;
         }
 
-        .notifica.show {
-            display: block;
-            animation: notificationSlide 0.3s;
-        }
-
-        @keyframes notificationSlide {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .notifica::before {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-        }
-
-        .notifica.successo {
-            background: rgba(39, 174, 96, 0.1);
-            color: var(--verde-successo);
-            border: 2px solid var(--verde-successo);
-        }
-
-        .notifica.successo::before {
-            content: '✓';
-        }
-
-        .notifica.errore {
-            background: rgba(231, 76, 60, 0.1);
-            color: var(--rosso-alert);
-            border: 2px solid var(--rosso-alert);
-        }
-
-        .notifica.errore::before {
+        .pricing-features li.disabled::before {
             content: '✗';
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
         }
 
-        .notifica.info {
-            background: rgba(201, 169, 97, 0.1);
-            color: var(--oro-luxlab);
-            border: 2px solid var(--oro-luxlab);
+        .btn-pricing {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            color: #9CA3AF;
         }
 
-        .notifica.info::before {
-            content: 'ℹ';
+        .pricing-card.featured .btn-pricing {
+            background: var(--gradient);
+            color: white;
+            border: none;
         }
 
-        #creditiContainer {
-            background: rgba(201, 169, 97, 0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            display: inline-block;
+        .btn-pricing:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
         }
 
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .container-principale {
-                padding: 0 30px;
+        /* Responsive Complete */
+        
+        /* Tablet (768px - 1024px) */
+        @media (max-width: 1024px) {
+            .main-container {
+                padding: 0 1.5rem;
             }
             
-            .pricing-card.consigliato {
-                transform: scale(1);
+            .strategy-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pricing-cards {
+                gap: 1.5rem;
+            }
+            
+            .converter-box {
+                padding: 2rem;
             }
         }
-
+        
+        /* Mobile Large (481px - 768px) */
         @media (max-width: 768px) {
-            .header-premium {
-                padding: 20px;
+            /* Header Mobile */
+            .header {
+                padding: 1rem;
+            }
+            
+            .header-container {
                 flex-direction: column;
-                gap: 20px;
+                gap: 1rem;
+                text-align: center;
             }
-
-            .brand-name {
-                font-size: 24px;
+            
+            .user-menu {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
             }
-
-            .hero-section {
-                padding: 40px 20px;
+            
+            .user-menu > a[href="https://luxlab.it"] {
+                display: none !important; /* Hide corporate link on mobile */
             }
-
+            
+            /* Hero Mobile */
+            .hero {
+                padding: 2rem 0;
+            }
+            
             .hero-title {
-                font-size: 36px;
+                font-size: 2rem;
+                line-height: 1.2;
             }
-
+            
             .hero-subtitle {
-                font-size: 16px;
+                font-size: 1rem;
+                padding: 0 1rem;
             }
-
-            .features-grid {
-                grid-template-columns: 1fr;
+            
+            /* Converter Box Mobile */
+            .converter-box {
+                padding: 1.5rem;
+                border-radius: 16px;
             }
-
-            .pannello-estrazione {
-                padding: 40px 20px;
+            
+            .converter-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
-
-            .pannello-title {
-                font-size: 28px;
+            
+            .converter-header > div {
+                flex-direction: column;
+                width: 100%;
             }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
+            
+            /* URL Input Mobile */
+            .url-input-group {
+                flex-direction: column;
             }
-
-            .pricing-card.consigliato {
-                transform: scale(1);
+            
+            .btn-analyze {
+                width: 100%;
             }
-
-            .footer-premium {
-                padding: 40px 20px;
+            
+            /* AI Analysis Box Mobile */
+            .ai-analysis-box {
+                padding: 1rem;
             }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
+            
+            .ai-steps {
+                font-size: 0.875rem;
             }
-
-            .footer-bottom {
+            
+            .ai-header {
                 flex-direction: column;
                 text-align: center;
             }
-
-            .modal-content {
-                padding: 40px 20px;
-                width: 95%;
+            
+            /* Strategy Cards Mobile */
+            .strategy-cards {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
             }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            
+            .strategy-card {
+                padding: 1rem;
             }
-
-            .tabella-risultati {
-                font-size: 14px;
+            
+            /* Process Phases Mobile */
+            .process-phase {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
             }
-
-            .tabella-risultati th,
-            .tabella-risultati td {
-                padding: 12px 10px;
+            
+            .phase-progress {
+                width: 100%;
             }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 28px;
+            
+            /* Pricing Cards Mobile */
+            .pricing-cards {
+                grid-template-columns: 1fr;
             }
-
-            .btn-premium {
-                padding: 10px 20px;
-                font-size: 11px;
+            
+            .pricing-card {
+                padding: 1.5rem;
             }
-
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            
             .pricing-price {
-                font-size: 36px;
+                font-size: 2.5rem;
             }
-
-            .stats-number {
-                font-size: 32px;
-            }
-
-            .nav-premium {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .ricarico-presets {
-                flex-direction: column;
-            }
-
-            .preset-btn {
-                width: 100%;
+            
+            /* Modal Mobile */
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+                margin: 1rem;
             }
         }
-
-        /* Loading Spinner */
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(201, 169, 97, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--oro-luxlab);
-            animation: spin 1s linear infinite;
+        
+        /* Mobile Small (320px - 480px) */
+        @media (max-width: 480px) {
+            /* Logo Mobile Small */
+            .logo-text {
+                font-size: 18px;
+            }
+            
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+            
+            /* Hero Mobile Small */
+            .hero-title {
+                font-size: 1.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.875rem;
+            }
+            
+            /* Converter Mobile Small */
+            .converter-title {
+                font-size: 1.25rem;
+            }
+            
+            .converter-badge {
+                font-size: 0.75rem;
+                padding: 0.375rem 0.75rem;
+            }
+            
+            /* Buttons Mobile Small */
+            .btn-convert {
+                font-size: 0.875rem;
+                padding: 1rem;
+            }
+            
+            .btn-auth {
+                padding: 0.375rem 0.75rem;
+                font-size: 12px;
+            }
+            
+            /* Form Elements Mobile Small */
+            .form-input {
+                padding: 0.75rem 1rem;
+                font-size: 0.875rem;
+            }
+            
+            /* AI Steps Mobile Small */
+            .ai-step {
+                font-size: 0.75rem;
+            }
+            
+            .ai-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+            
+            /* Strategy Cards Mobile Small */
+            .strategy-card {
+                padding: 0.75rem;
+            }
+            
+            .strategy-name {
+                font-size: 0.875rem;
+            }
+            
+            .strategy-margin {
+                font-size: 1rem;
+            }
+            
+            /* Process Phases Mobile Small */
+            .phase-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+            
+            .phase-title {
+                font-size: 0.875rem;
+            }
+            
+            .phase-status {
+                font-size: 0.75rem;
+            }
+            
+            /* Pricing Mobile Small */
+            .pricing-name {
+                font-size: 1.25rem;
+            }
+            
+            .pricing-price {
+                font-size: 2rem;
+            }
+            
+            .pricing-features {
+                font-size: 0.875rem;
+            }
+            
+            .pricing-features li {
+                padding: 0.5rem 0;
+            }
+            
+            /* Alert Mobile Small */
+            .alert {
+                font-size: 0.875rem;
+                padding: 0.75rem;
+            }
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        
+        /* Ultra Small Devices (below 320px) */
+        @media (max-width: 320px) {
+            .hero-title {
+                font-size: 1.25rem;
+            }
+            
+            .converter-box {
+                padding: 1rem;
+            }
+            
+            .strategy-cards {
+                gap: 0.5rem;
+            }
+            
+            .modal-content {
+                padding: 1rem;
+            }
         }
-
-        /* Tooltips */
-        .tooltip {
-            position: relative;
-            cursor: help;
+        
+        /* Landscape Orientation Fixes */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .header {
+                padding: 0.5rem 1rem;
+            }
+            
+            .hero {
+                padding: 1rem 0;
+            }
+            
+            .hero-title {
+                font-size: 1.75rem;
+            }
+            
+            .converter-box {
+                padding: 1.5rem;
+            }
+            
+            .pricing-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
-
-        .tooltip::after {
-            content: attr(data-tip);
-            position: absolute;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--nero-profondo);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+        
+        /* High Resolution Displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            /* Sharper borders and shadows for retina */
+            .converter-box,
+            .strategy-card,
+            .pricing-card,
+            .modal-content {
+                border-width: 0.5px;
+            }
         }
-
-        .tooltip:hover::after {
-            opacity: 1;
+        
+        /* Print Styles */
+        @media print {
+            .header,
+            .user-menu,
+            .btn-convert,
+            .btn-pricing,
+            .modal {
+                display: none !important;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .converter-box,
+            .pricing-card {
+                border: 1px solid #000;
+                box-shadow: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header Premium -->
-    <header class="header-premium">
-        <div class="logo-container">
-            <div class="logo-luxlab">💎</div>
-            <h1 class="brand-name">LUXLAB EXTRACTOR</h1>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">💎</div>
+                <div>
+                    <div class="logo-text">LUXLAB CONVERTITORE</div>
+                    <div class="logo-subtitle">B2B Stock Management System</div>
+                </div>
+            </a>
+            <div class="user-menu">
+                <a href="https://luxlab.it" target="_blank" style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 10px 20px;
+                    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+                    border-radius: 50px;
+                    text-decoration: none;
+                    color: #1A1F3A;
+                    font-weight: 700;
+                    font-size: 13px;
+                    letter-spacing: 1px;
+                    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+                    transition: all 0.3s;
+                    margin-right: 2rem;
+                " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(255, 215, 0, 0.5)'" 
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(255, 215, 0, 0.3)'">
+                    <span style="font-size: 18px;">👑</span>
+                    <span>LUXLAB.IT</span>
+                    <span style="font-size: 10px; opacity: 0.8;">CORPORATE</span>
+                </a>
+                <div class="user-info" id="userInfo">
+                    <span id="userEmail">user@example.com</span>
+                    <span class="user-plan" id="userPlan">TRIAL</span>
+                    <button class="btn-auth btn-logout" onclick="logout()">Esci</button>
+                </div>
+                <button class="btn-auth btn-login" id="btnLogin" onclick="showModal('login')">Accedi</button>
+                <button class="btn-auth btn-register" id="btnRegister" onclick="showModal('register')">Registrati</button>
+            </div>
         </div>
-        <nav class="nav-premium">
-            <span id="userInfo" style="color: var(--oro-luxlab); margin-right: 20px; display: none;">
-                <span id="userEmail"></span> | 
-                <span id="creditiContainer">
-                    💎 Crediti: <strong id="userCredits">0</strong>
-                </span>
-            </span>
-            <button class="btn-premium btn-outline" onclick="mostraLogin()" id="btnLogin">Accedi</button>
-            <button class="btn-premium btn-oro" onclick="mostraRegistrazione()" id="btnRegister">Registrati</button>
-            <button class="btn-premium btn-outline" id="btnLogout" style="display: none;" onclick="logout()">Esci</button>
-        </nav>
     </header>
 
-    <!-- Container Principale -->
-    <div class="container-principale">
+    <!-- Main Container -->
+    <div class="main-container">
         <!-- Hero Section -->
-        <section class="hero-section">
-            <h2 class="hero-title">Stock Extractor Professional</h2>
-            <p class="hero-subtitle">SISTEMA DI ESTRAZIONE CATALOGHI E STOCK LIST</p>
-            <div class="hero-features">
-                <div class="hero-feature">Estrazione Anti-Bot</div>
-                <div class="hero-feature">Excel Professionale</div>
-                <div class="hero-feature">Immagini HD</div>
-                <div class="hero-feature">Ricarico Automatico</div>
+        <section class="hero">
+            <h1 class="hero-title">Converti Cataloghi in Listini B2B</h1>
+            <p class="hero-subtitle">
+                Sistema intelligente con analisi competitor nascosta che suggerisce 
+                le migliori strategie di pricing per massimizzare i tuoi margini
+            </p>
+        </section>
+
+        <!-- Converter Box -->
+        <div class="converter-box">
+            <div class="converter-header">
+                <h2 class="converter-title">🚀 Convertitore Intelligente</h2>
+                <div style="display: flex; gap: 10px;">
+                    <span class="converter-badge" style="background: linear-gradient(135deg, #00D4FF 0%, #0099FF 100%); animation: pulse 2s infinite;">
+                        🤖 AI POWERED
+                    </span>
+                    <span class="converter-badge" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                        ANALISI COMPETITOR
+                    </span>
+                </div>
             </div>
-            <button class="btn-premium btn-oro" style="font-size: 16px; padding: 18px 50px; margin-top: 40px;" onclick="scrollToExtractor()">
-                🚀 INIZIA ESTRAZIONE
+
+            <!-- URL Input -->
+            <div class="form-group">
+                <label class="form-label">🔎 URL Catalogo da Convertire</label>
+                <div class="url-input-group">
+                    <input type="url" 
+                           class="form-input url-input" 
+                           id="catalogUrl"
+                           placeholder="https://esempio.com/catalogo-prodotti"
+                           autocomplete="off">
+                    <button class="btn-analyze" id="btnAnalyze" onclick="analyzeUrl()">
+                        <span id="analyzeText">🔍 Analizza</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI Analysis Box (Hidden initially, shows during analysis) -->
+            <div class="ai-analysis-box" id="aiAnalysisBox">
+                <div class="ai-header">
+                    <div class="ai-icon">🤖</div>
+                    <div class="ai-title">CompetitorIntelligence AI v2.0</div>
+                </div>
+                <div class="ai-status" id="aiStatus">Inizializzazione sistema AI...</div>
+                <div class="ai-progress">
+                    <div class="ai-progress-bar" id="aiProgressBar"></div>
+                </div>
+                <div class="ai-steps" id="aiSteps">
+                    <div class="ai-step" id="step1">
+                        <span class="ai-step-icon">1</span>
+                        <span>🔍 Analisi struttura catalogo</span>
+                    </div>
+                    <div class="ai-step" id="step2">
+                        <span class="ai-step-icon">2</span>
+                        <span>🌐 Scansione Farfetch, SSENSE, Yoox</span>
+                    </div>
+                    <div class="ai-step" id="step3">
+                        <span class="ai-step-icon">3</span>
+                        <span>📊 Calcolo prezzi di mercato</span>
+                    </div>
+                    <div class="ai-step" id="step4">
+                        <span class="ai-step-icon">4</span>
+                        <span>🧠 AI suggerisce strategia ottimale</span>
+                    </div>
+                    <div class="ai-step" id="step5">
+                        <span class="ai-step-icon">5</span>
+                        <span>✅ Analisi completata</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategy Suggestion (appears after AI analysis) -->
+            <div class="strategy-suggestion" id="strategySuggestion">
+                <div class="suggestion-title">
+                    <span>🤖</span>
+                    <span>Strategia Consigliata dall'AI</span>
+                </div>
+                <div class="suggestion-text" id="suggestionText">
+                    Analizzando il mercato, l'AI suggerisce la strategia BALANCED per questo catalogo.
+                </div>
+                <div class="confidence-meter">
+                    <span style="font-size: 0.75rem; color: #9CA3AF;">Confidenza AI:</span>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" id="confidenceFill" style="width: 0%;"></div>
+                    </div>
+                    <span id="confidencePercent" style="font-size: 0.875rem; font-weight: 600;">0%</span>
+                </div>
+            </div>
+
+            <!-- Strategy Selection -->
+            <div class="form-group">
+                <label class="form-label">💰 Strategia Pricing B2B</label>
+                <div class="strategy-cards">
+                    <div class="strategy-card" id="strategy-AGGRESSIVE" onclick="selectStrategy('AGGRESSIVE')">
+                        <div class="strategy-name">⚡ AGGRESSIVE</div>
+                        <div class="strategy-desc">Vendita veloce</div>
+                        <div class="strategy-margin">25-35%</div>
+                    </div>
+                    <div class="strategy-card selected" id="strategy-BALANCED" onclick="selectStrategy('BALANCED')">
+                        <div class="strategy-name">⚖️ BALANCED</div>
+                        <div class="strategy-desc">Standard market</div>
+                        <div class="strategy-margin">45-55%</div>
+                    </div>
+                    <div class="strategy-card" id="strategy-PREMIUM" onclick="selectStrategy('PREMIUM')">
+                        <div class="strategy-name">👑 PREMIUM</div>
+                        <div class="strategy-desc">Alto margine</div>
+                        <div class="strategy-margin">65-75%</div>
+                    </div>
+                    <div class="strategy-card" id="strategy-CUSTOM" onclick="selectStrategy('CUSTOM')">
+                        <div class="strategy-name">⚙️ CUSTOM</div>
+                        <div class="strategy-desc">Personalizzato</div>
+                        <div class="strategy-margin">?%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert Messages -->
+            <div class="alert alert-info" id="alertBox"></div>
+
+            <!-- Convert Button -->
+            <button class="btn-convert" id="btnConvert" onclick="startConversion()">
+                <span id="convertText">🚀 GENERA LISTINO B2B PROFESSIONALE</span>
             </button>
-        </section>
 
-        <!-- Features Grid -->
-        <section class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🎯</div>
-                <h3 class="feature-title">Estrazione Completa</h3>
-                <p class="feature-description">Estrae tutti i prodotti da qualsiasi e-commerce con prezzi e dettagli completi</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💰</div>
-                <h3 class="feature-title">Ricarico Automatico</h3>
-                <p class="feature-description">Applica automaticamente il tuo markup sui prezzi estratti</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📸</div>
-                <h3 class="feature-title">Catalogo Excel</h3>
-                <p class="feature-description">Genera cataloghi professionali in formato Excel con immagini HD</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <h3 class="feature-title">Anti-Detection</h3>
-                <p class="feature-description">Sistema avanzato per bypassare protezioni e limitazioni</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Ultra Veloce</h3>
-                <p class="feature-description">Elaborazione parallela per massima velocità di estrazione</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔄</div>
-                <h3 class="feature-title">Aggiornamenti</h3>
-                <p class="feature-description">Aggiornamenti automatici prezzi e disponibilità</p>
-            </div>
-        </section>
-
-        <!-- Pannello Estrazione -->
-        <section class="pannello-estrazione" id="pannelloEstrazione">
-            <div class="pannello-header">
-                <h2 class="pannello-title">Centro di Estrazione Stock</h2>
-                <p class="pannello-subtitle">Inserisci l'URL del catalogo online da estrarre</p>
-            </div>
-
-            <form id="formEstrazione" onsubmit="event.preventDefault(); avviaEstrazione();">
-                <div class="form-gruppo">
-                    <label class="form-label">URL del Catalogo/Stock List</label>
-                    <input type="url" class="form-input" id="urlPortale" 
-                           placeholder="https://stock.example.com/products" required>
-                    <small style="color: var(--grigio-elegante); display: block; margin-top: 10px;">
-                        Inserisci l'URL della pagina con i prodotti da estrarre
-                    </small>
+            <!-- Trial Token Input (for non-logged users) -->
+            <div style="text-align: center; margin-top: 1rem;">
+                <small style="color: #9CA3AF;">
+                    Hai un token di prova? 
+                    <a href="#" onclick="showTrialInput()" style="color: var(--accent);">Inseriscilo qui</a>
+                </small>
+                <div id="trialTokenInput" style="display: none; margin-top: 1rem;">
+                    <input type="text" 
+                           class="form-input" 
+                           id="trialToken" 
+                           placeholder="Inserisci il tuo token (es: LXB-XXXXXXXXXXXX)"
+                           style="max-width: 400px; margin: 0 auto;">
                 </div>
+            </div>
 
-                <div class="form-gruppo">
-                    <label class="form-label">💰 RICARICO DA APPLICARE (%)</label>
-                    <input type="number" class="form-input" id="ricarico" 
-                           placeholder="50" value="50" min="0" max="500" 
-                           style="text-align: center; font-size: 20px; font-weight: bold;">
-                    <div class="ricarico-presets">
-                        <button type="button" class="preset-btn" onclick="setRicarico(30)">30%</button>
-                        <button type="button" class="preset-btn" onclick="setRicarico(50)">50%</button>
-                        <button type="button" class="preset-btn" onclick="setRicarico(75)">75%</button>
-                        <button type="button" class="preset-btn" onclick="setRicarico(100)">100%</button>
-                        <button type="button" class="preset-btn" onclick="setRicarico(150)">150%</button>
+            <!-- Process Status Box (Hidden initially, shows during conversion) -->
+            <div class="process-status-box" id="processStatusBox">
+                <div class="process-header">🔄 Elaborazione in Corso...</div>
+                <div class="process-phases">
+                    <div class="process-phase" id="phase1">
+                        <div class="phase-icon" id="phaseIcon1">🔗</div>
+                        <div class="phase-content">
+                            <div class="phase-title">Connessione al catalogo</div>
+                            <div class="phase-status" id="phaseStatus1">In attesa...</div>
+                        </div>
+                        <div class="phase-progress">
+                            <div class="phase-progress-bar" id="phaseProgress1"></div>
+                        </div>
+                    </div>
+                    <div class="process-phase" id="phase2">
+                        <div class="phase-icon" id="phaseIcon2">📦</div>
+                        <div class="phase-content">
+                            <div class="phase-title">Estrazione prodotti</div>
+                            <div class="phase-status" id="phaseStatus2">In attesa...</div>
+                        </div>
+                        <div class="phase-progress">
+                            <div class="phase-progress-bar" id="phaseProgress2"></div>
+                        </div>
+                    </div>
+                    <div class="process-phase" id="phase3">
+                        <div class="phase-icon" id="phaseIcon3">🤖</div>
+                        <div class="phase-content">
+                            <div class="phase-title">AI calcola prezzi ottimali</div>
+                            <div class="phase-status" id="phaseStatus3">In attesa...</div>
+                        </div>
+                        <div class="phase-progress">
+                            <div class="phase-progress-bar" id="phaseProgress3"></div>
+                        </div>
+                    </div>
+                    <div class="process-phase" id="phase4">
+                        <div class="phase-icon" id="phaseIcon4">🖼️</div>
+                        <div class="phase-content">
+                            <div class="phase-title">Download immagini HD</div>
+                            <div class="phase-status" id="phaseStatus4">In attesa...</div>
+                        </div>
+                        <div class="phase-progress">
+                            <div class="phase-progress-bar" id="phaseProgress4"></div>
+                        </div>
+                    </div>
+                    <div class="process-phase" id="phase5">
+                        <div class="phase-icon" id="phaseIcon5">📊</div>
+                        <div class="phase-content">
+                            <div class="phase-title">Generazione Excel B2B</div>
+                            <div class="phase-status" id="phaseStatus5">In attesa...</div>
+                        </div>
+                        <div class="phase-progress">
+                            <div class="phase-progress-bar" id="phaseProgress5"></div>
+                        </div>
                     </div>
                 </div>
-
-                <button type="submit" class="btn-estrazione" id="btnEstrai">
-                    🚀 AVVIA ESTRAZIONE CATALOGO
-                </button>
-
-                <div class="notifica" id="notifica"></div>
-
-                <div class="progress-container" id="progressContainer">
-                    <div class="progress-info">
-                        <span class="progress-status" id="progressStatus">Inizializzazione...</span>
-                        <span class="progress-percentage" id="progressPercentage">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressBar"></div>
-                    </div>
-                </div>
-            </form>
-        </section>
-
-        <!-- Container Risultati -->
-        <section class="risultati-container" id="risultatiContainer">
-            <div class="risultati-header">
-                <h2 class="risultati-title">Risultati Estrazione</h2>
-                <button class="btn-premium btn-oro" onclick="esportaExcel()">
-                    📥 SCARICA EXCEL
-                </button>
             </div>
-            
-            <div class="risultati-stats">
-                <div class="stat-card">
-                    <div class="stat-label">Prodotti Totali</div>
-                    <div class="stat-value" id="statTotale">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Ricarico Applicato</div>
-                    <div class="stat-value" id="statRicarico">0%</div>
-                </div>
-            </div>
-            
-            <div class="tabella-risultati">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Codice</th>
-                            <th>Prodotto</th>
-                            <th>Brand</th>
-                            <th>Prezzo Originale</th>
-                            <th>Prezzo Outlet</th>
-                            <th>Sconto</th>
-                            <th>Quantità</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabellaRisultati"></tbody>
-                </table>
-            </div>
-        </section>
+        </div>
 
-        <!-- Stats Section -->
-        <section class="stats-section">
-            <div class="stats-grid">
-                <div class="stats-item">
-                    <div class="stats-number">10.000+</div>
-                    <div class="stats-label">Prodotti Estratti</div>
-                </div>
-                <div class="stats-item">
-                    <div class="stats-number">500+</div>
-                    <div class="stats-label">Clienti Soddisfatti</div>
-                </div>
-                <div class="stats-item">
-                    <div class="stats-number">99.9%</div>
-                    <div class="stats-label">Uptime</div>
-                </div>
-                <div class="stats-item">
-                    <div class="stats-number">24/7</div>
-                    <div class="stats-label">Supporto</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sezione Pricing -->
+        <!-- Pricing Section -->
         <section class="pricing-section">
             <div class="pricing-header">
-                <h2 class="pricing-title">Piani di Abbonamento</h2>
-                <p class="pricing-subtitle">Scegli il piano più adatto al tuo volume di lavoro</p>
+                <h2 class="pricing-title">Scegli il Tuo Piano</h2>
+                <p class="pricing-subtitle">Prezzi trasparenti, nessun costo nascosto</p>
             </div>
 
-            <div class="pricing-grid">
+            <div class="pricing-cards">
+                <!-- Base Plan -->
                 <div class="pricing-card">
-                    <h3 class="pricing-name">Singola Estrazione</h3>
-                    <div class="pricing-price"><span>€</span>149</div>
-                    <div class="pricing-period">uso singolo</div>
+                    <h3 class="pricing-name">Base</h3>
+                    <div class="pricing-price"><sup>€</sup>149</div>
+                    <div class="pricing-period">Singola conversione</div>
                     <ul class="pricing-features">
-                        <li><strong>1 Estrazione</strong> singola</li>
-                        <li>Fino a <strong>1000 prodotti</strong></li>
-                        <li>Export Excel base</li>
-                        <li>Ricarico personalizzabile</li>
-                        <li>Validità 24 ore</li>
-                        <li>Supporto email</li>
+                        <li>100 prodotti per conversione</li>
+                        <li>Calcolo prezzi base</li>
+                        <li>Export Excel standard</li>
+                        <li class="disabled">Analisi competitor AI</li>
+                        <li class="disabled">Immagini HD</li>
+                        <li>Validità 30 giorni</li>
                     </ul>
-                    <button class="btn-premium btn-outline pricing-button" onclick="acquistaPiano('base')">
-                        ACQUISTA ORA
+                    <button class="btn-pricing" onclick="selectPlan('base')">
+                        Acquista Ora
                     </button>
                 </div>
 
-                <div class="pricing-card consigliato">
+                <!-- Professional Plan -->
+                <div class="pricing-card featured">
                     <h3 class="pricing-name">Professional</h3>
-                    <div class="pricing-price"><span>€</span>399</div>
-                    <div class="pricing-period">al mese</div>
+                    <div class="pricing-price"><sup>€</sup>399</div>
+                    <div class="pricing-period">Al mese</div>
                     <ul class="pricing-features">
-                        <li>Estrazioni <strong>ILLIMITATE</strong></li>
-                        <li><strong>5000 prodotti</strong> per estrazione</li>
-                        <li>Export Excel multipli</li>
-                        <li>Aggiornamenti automatici</li>
-                        <li>Elaborazione prioritaria</li>
-                        <li>Supporto dedicato 24/7</li>
-                        <li>API personalizzate</li>
+                        <li>500 prodotti per conversione</li>
+                        <li>Calcolo prezzi avanzato</li>
+                        <li>Export Excel professionale</li>
+                        <li>Analisi competitor AI in tempo reale</li>
+                        <li>Suggerimenti strategia AI</li>
+                        <li>Supporto prioritario</li>
                     </ul>
-                    <button class="pricing-button" onclick="acquistaPiano('professional')">
-                        ATTIVA ORA
+                    <button class="btn-pricing" onclick="selectPlan('professional')">
+                        Inizia Ora
                     </button>
                 </div>
 
+                <!-- Enterprise Plan -->
                 <div class="pricing-card">
-                    <h3 class="pricing-name">Enterprise</h3>
-                    <div class="pricing-price"><span>€</span>1999</div>
-                    <div class="pricing-period">all'anno</div>
+                    <h3 class="pricing-name">Enterprise HD + AI</h3>
+                    <div style="background: linear-gradient(135deg, #00D4FF 0%, #0099FF 100%); padding: 8px; border-radius: 8px; margin-bottom: 1rem;">
+                        <div style="font-size: 14px; font-weight: 700;">🤖 INTELLIGENZA ARTIFICIALE COMPLETA</div>
+                    </div>
+                    <div class="pricing-price"><sup>€</sup>1999</div>
+                    <div class="pricing-period">All'anno</div>
                     <ul class="pricing-features">
-                        <li><strong>TUTTO ILLIMITATO</strong></li>
-                        <li>Prodotti <strong>ILLIMITATI</strong></li>
-                        <li><strong>IMMAGINI HD</strong> renderizzate</li>
-                        <li>Excel professionali completi</li>
-                        <li>Server dedicato ultra-veloce</li>
-                        <li>API personalizzate</li>
-                        <li>Account manager VIP</li>
-                        <li>White Label disponibile</li>
+                        <li style="background: rgba(0, 212, 255, 0.1); border-radius: 8px; padding: 10px;">
+                            <strong>🧠 AI ANALIZZA COMPETITOR</strong><br>
+                            <small>Scansiona Farfetch, SSENSE, Yoox automaticamente</small>
+                        </li>
+                        <li style="background: rgba(0, 212, 255, 0.1); border-radius: 8px; padding: 10px;">
+                            <strong>📊 SUGGERIMENTI STRATEGIA AI</strong><br>
+                            <small>L'AI consiglia il pricing ottimale</small>
+                        </li>
+                        <li>Prodotti ILLIMITATI</li>
+                        <li>Export con immagini HD</li>
+                        <li>Strategie personalizzate illimitate</li>
+                        <li>API dedicata + White Label</li>
+                        <li>Account manager dedicato</li>
                     </ul>
-                    <button class="btn-premium btn-oro pricing-button" onclick="acquistaPiano('enterprise')">
-                        ACQUISTA ORA
+                    <button class="btn-pricing" onclick="selectPlan('enterprise')">
+                        Attiva Intelligence System
                     </button>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer-premium">
-        <div class="container-principale">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <div class="footer-logo">LuxLab</div>
-                    <p class="footer-description">
-                        Sistema professionale di estrazione cataloghi e stock list per il settore luxury e fashion.
-                    </p>
-                    <div class="footer-social">
-                        <a href="#" class="social-icon">f</a>
-                        <a href="#" class="social-icon">in</a>
-                        <a href="#" class="social-icon">ig</a>
-                        <a href="#" class="social-icon">x</a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Prodotti</h3>
-                    <ul>
-                        <li><a href="#" class="footer-link">Stock Extractor</a></li>
-                        <li><a href="#" class="footer-link">API Developer</a></li>
-                        <li><a href="#" class="footer-link">Excel Generator</a></li>
-                        <li><a href="#" class="footer-link">Image Processor</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Azienda</h3>
-                    <ul>
-                        <li><a href="#" class="footer-link">Chi Siamo</a></li>
-                        <li><a href="#" class="footer-link">Carriere</a></li>
-                        <li><a href="#" class="footer-link">Partner</a></li>
-                        <li><a href="#" class="footer-link">Contatti</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Supporto</h3>
-                    <ul>
-                        <li><a href="#" class="footer-link">Documentazione</a></li>
-                        <li><a href="#" class="footer-link">FAQ</a></li>
-                        <li><a href="#" class="footer-link">Status Sistema</a></li>
-                        <li><a href="#" class="footer-link">Assistenza 24/7</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <div class="footer-copyright">
-                    © 2024 LuxLab S.r.l. - P.IVA 07308130488 - Tutti i diritti riservati
-                </div>
-                <div class="footer-payments">
-                    <span class="payment-icon">VISA</span>
-                    <span class="payment-icon">Mastercard</span>
-                    <span class="payment-icon">PayPal</span>
-                    <span class="payment-icon">Stripe</span>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modal Auth -->
-    <div class="modal-auth" id="modalAuth">
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
         <div class="modal-content">
-            <span class="modal-close" onclick="chiudiModal()">×</span>
+            <div class="modal-close" onclick="closeModal()">✕</div>
             
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Accedi al tuo Account</h2>
-                <p class="modal-subtitle">Accedi per continuare con LuxLab Extractor</p>
+            <h2 class="modal-title" id="modalTitle">Accedi</h2>
+            <p class="modal-subtitle" id="modalSubtitle">Accedi per continuare</p>
+
+            <!-- Auth Tabs -->
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Accedi</div>
+                <div class="auth-tab" id="tabRegister" onclick="switchTab('register')">Registrati</div>
             </div>
 
-            <!-- Form Login -->
-            <form id="formLogin" style="display: block;" onsubmit="event.preventDefault(); effettuaLogin();">
-                <div class="form-gruppo">
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
                     <label class="form-label">Email</label>
                     <input type="email" class="form-input" id="loginEmail" required>
                 </div>
-                <div class="form-gruppo">
+                <div class="form-group">
                     <label class="form-label">Password</label>
                     <input type="password" class="form-input" id="loginPassword" required>
                 </div>
-                
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <label style="display: flex; align-items: center; gap: 5px;">
-                        <input type="checkbox" id="rememberMe">
-                        <span style="font-size: 14px;">Ricordami</span>
-                    </label>
-                    <a href="#" style="color: var(--oro-luxlab); font-size: 14px;">Password dimenticata?</a>
-                </div>
-                
-                <button type="submit" class="btn-premium btn-oro" style="width: 100%;">
-                    ACCEDI
-                </button>
-                
-                <div class="divider">
-                    <span>OPPURE</span>
-                </div>
-                
-                <div class="social-login">
-                    <button type="button" class="social-btn">
-                        <span>G</span> Google
-                    </button>
-                    <button type="button" class="social-btn">
-                        <span>f</span> Facebook
-                    </button>
-                </div>
-                
-                <p style="text-align: center; margin-top: 20px;">
-                    Non hai un account? 
-                    <a href="#" onclick="switchToRegister(); return false;" style="color: var(--oro-luxlab);">Registrati gratis</a>
-                </p>
+                <button type="submit" class="btn-convert">Accedi</button>
             </form>
 
-            <!-- Form Registrazione -->
-            <form id="formRegistrazione" style="display: none;" onsubmit="event.preventDefault(); effettuaRegistrazione();">
-                <div class="form-gruppo">
+            <!-- Register Form -->
+            <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
+                <div class="trial-banner">
+                    <h4>🎁 BONUS REGISTRAZIONE</h4>
+                    <p>Ricevi 1 TOKEN PROVA per testare 10 prodotti con immagini HD + AI!</p>
+                </div>
+                <div class="form-group">
                     <label class="form-label">Nome</label>
-                    <input type="text" class="form-input" id="regNome" required>
+                    <input type="text" class="form-input" id="registerName" required>
                 </div>
-                <div class="form-gruppo">
+                <div class="form-group">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-input" id="regEmail" required>
+                    <input type="email" class="form-input" id="registerEmail" required>
                 </div>
-                <div class="form-gruppo">
+                <div class="form-group">
+                    <label class="form-label">Azienda (opzionale)</label>
+                    <input type="text" class="form-input" id="registerCompany">
+                </div>
+                <div class="form-group">
                     <label class="form-label">Password</label>
-                    <input type="password" class="form-input" id="regPassword" required>
-                    <small style="color: var(--grigio-elegante);">Minimo 6 caratteri</small>
+                    <input type="password" class="form-input" id="registerPassword" required minlength="6">
                 </div>
-                
-                <div style="margin: 20px 0;">
-                    <label style="display: flex; align-items: flex-start; gap: 8px;">
-                        <input type="checkbox" required style="margin-top: 3px;">
-                        <span style="font-size: 13px; color: var(--grigio-elegante);">
-                            Accetto i <a href="#" style="color: var(--oro-luxlab);">Termini di Servizio</a> 
-                            e la <a href="#" style="color: var(--oro-luxlab);">Privacy Policy</a>
-                        </span>
-                    </label>
-                </div>
-                
-                <button type="submit" class="btn-premium btn-oro" style="width: 100%;">
-                    REGISTRATI GRATIS
-                </button>
-                
-                <div style="background: rgba(201, 169, 97, 0.1); padding: 15px; border-radius: 10px; margin-top: 20px;">
-                    <strong style="color: var(--oro-luxlab);">🎁 Bonus Registrazione</strong><br>
-                    <small style="color: var(--grigio-elegante);">
-                        Ricevi 1 credito gratuito per testare il sistema (10 prodotti)
-                    </small>
-                </div>
-                
-                <p style="text-align: center; margin-top: 20px;">
-                    Hai già un account? 
-                    <a href="#" onclick="switchToLogin(); return false;" style="color: var(--oro-luxlab);">Accedi</a>
-                </p>
+                <button type="submit" class="btn-convert">Registrati Gratis</button>
             </form>
         </div>
     </div>
 
     <script>
-        // Configurazione
-        const API_URL = window.location.origin + '/api';
+        // Configuration
+        const API_URL = 'http://194.5.152.208:5000/api';  // Punta al tuo server Python
         let authToken = localStorage.getItem('authToken') || '';
-        let currentFile = null;
-        let utenteCorrente = null;
-        let currentJobId = null;
-        let statusCheckInterval = null;
+        let currentUser = null;
+        let selectedStrategy = 'BALANCED';
+        let currentDownloadUrl = '';
+        let suggestedStrategy = null;
+        let isProcessing = false;
 
-        // Init
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 LuxLab Stock Extractor Ready');
-            aggiornaInterfacciaUtente();
+            console.log('💎 LUXLAB CONVERTITORE Ready');
             
             if (authToken) {
-                verificaSessione();
+                checkAuth();
             }
-            
-            // Test connessione
-            testConnection();
         });
 
-        async function testConnection() {
+        // Authentication
+        async function checkAuth() {
             try {
-                const response = await fetch(`${API_URL}/health`);
-                if (response.ok) {
-                    console.log('✅ Server connesso');
-                } else {
-                    console.warn('⚠️ Server risponde con errore');
-                }
-            } catch (error) {
-                console.error('❌ Server non raggiungibile:', error);
-                mostraNotifica('errore', '⚠️ Server non raggiungibile. Verifica la connessione.');
-            }
-        }
-
-        async function avviaEstrazione() {
-            const url = document.getElementById('urlPortale').value.trim();
-            const ricarico = parseInt(document.getElementById('ricarico').value) || 50;
-
-            if (!url) {
-                mostraNotifica('errore', 'Inserisci un URL valido');
-                return;
-            }
-
-            // Reset UI
-            document.getElementById('progressContainer').classList.add('active');
-            document.getElementById('btnEstrai').disabled = true;
-            document.getElementById('progressBar').style.width = '0%';
-            document.getElementById('progressPercentage').textContent = '0%';
-            document.getElementById('progressStatus').textContent = 'Inizializzazione...';
-            
-            try {
-                const response = await fetch(`${API_URL}/extract`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${authToken || 'demo-token'}`
-                    },
-                    body: JSON.stringify({ url, ricarico })
+                const response = await fetch(`${API_URL}/user/profile`, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
                 });
-
-                const data = await response.json();
                 
-                if (data.success) {
-                    currentJobId = data.job_id;
-                    mostraNotifica('info', `Piano ${data.piano} - Max ${data.max_products} prodotti`);
-                    startStatusCheck();
+                if (response.ok) {
+                    const data = await response.json();
+                    currentUser = data.user;
+                    updateUIAuth();
                 } else {
-                    throw new Error(data.error || 'Estrazione fallita');
+                    authToken = '';
+                    localStorage.removeItem('authToken');
                 }
             } catch (error) {
-                document.getElementById('progressContainer').classList.remove('active');
-                document.getElementById('btnEstrai').disabled = false;
-                mostraNotifica('errore', error.message);
+                console.error('Auth check failed:', error);
             }
         }
 
-        function startStatusCheck() {
-            if (statusCheckInterval) {
-                clearInterval(statusCheckInterval);
-            }
-            
-            statusCheckInterval = setInterval(checkStatus, 1000);
-        }
-
-        async function checkStatus() {
-            if (!currentJobId) return;
-            
-            try {
-                const response = await fetch(`${API_URL}/status/${currentJobId}`);
-                const data = await response.json();
-                
-                if (data.success && data.status) {
-                    const status = data.status;
-                    
-                    // Aggiorna progress
-                    document.getElementById('progressBar').style.width = status.progress + '%';
-                    document.getElementById('progressPercentage').textContent = status.progress + '%';
-                    document.getElementById('progressStatus').textContent = status.messaggio || 'In elaborazione...';
-                    
-                    if (status.fase === 'completato') {
-                        clearInterval(statusCheckInterval);
-                        currentFile = status.file;
-                        mostraRisultati(status.prodotti || [], status.totale || 0);
-                        mostraNotifica('successo', status.messaggio);
-                        document.getElementById('progressContainer').classList.remove('active');
-                        document.getElementById('btnEstrai').disabled = false;
-                        
-                        // Aggiorna crediti
-                        if (authToken) {
-                            verificaSessione();
-                        }
-                    } else if (status.fase === 'errore') {
-                        clearInterval(statusCheckInterval);
-                        throw new Error(status.messaggio);
-                    }
-                }
-            } catch (error) {
-                clearInterval(statusCheckInterval);
-                document.getElementById('progressContainer').classList.remove('active');
-                document.getElementById('btnEstrai').disabled = false;
-                mostraNotifica('errore', 'Errore controllo status: ' + error.message);
+        function updateUIAuth() {
+            if (currentUser) {
+                document.getElementById('userInfo').classList.add('active');
+                document.getElementById('userEmail').textContent = currentUser.email;
+                document.getElementById('userPlan').textContent = currentUser.plan.toUpperCase();
+                document.getElementById('btnLogin').style.display = 'none';
+                document.getElementById('btnRegister').style.display = 'none';
+            } else {
+                document.getElementById('userInfo').classList.remove('active');
+                document.getElementById('btnLogin').style.display = 'block';
+                document.getElementById('btnRegister').style.display = 'block';
             }
         }
 
-        function mostraRisultati(prodotti, totale) {
-            const container = document.getElementById('risultatiContainer');
-            const tabella = document.getElementById('tabellaRisultati');
-            const ricarico = document.getElementById('ricarico').value;
+        async function handleLogin(event) {
+            event.preventDefault();
             
-            container.classList.add('active');
-            document.getElementById('statTotale').textContent = totale;
-            document.getElementById('statRicarico').textContent = ricarico + '%';
-            
-            tabella.innerHTML = '';
-            
-            prodotti.forEach(prodotto => {
-                const riga = document.createElement('tr');
-                riga.innerHTML = `
-                    <td><strong>${prodotto.codice || 'N/A'}</strong></td>
-                    <td>${prodotto.descrizione || 'Prodotto'}</td>
-                    <td>${prodotto.brand || 'BRAND'}</td>
-                    <td>${prodotto.prezzoListino || '€0'}</td>
-                    <td style="color: var(--verde-successo); font-weight: bold;">${prodotto.prezzoOutlet || '€0'}</td>
-                    <td><span style="color: var(--rosso-alert);">${prodotto.sconto || '-'}</span></td>
-                    <td>${prodotto.quantita || 0}</td>
-                `;
-                tabella.appendChild(riga);
-            });
-
-            container.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function esportaExcel() {
-            if (!currentFile) {
-                mostraNotifica('errore', 'Nessun file da scaricare');
-                return;
-            }
-            window.open(`${API_URL}/download/${currentFile}?token=${authToken || 'demo-token'}`, '_blank');
-            mostraNotifica('successo', '📥 Download Excel avviato!');
-        }
-
-        async function effettuaLogin() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
-
-            if (!email || !password) {
-                mostraNotifica('errore', 'Compila tutti i campi');
-                return;
-            }
-
+            
             try {
                 const response = await fetch(`${API_URL}/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
-
+                
                 const data = await response.json();
                 
                 if (data.success) {
                     authToken = data.token;
                     localStorage.setItem('authToken', authToken);
-                    utenteCorrente = data.user;
-                    aggiornaInterfacciaUtente();
-                    chiudiModal();
-                    mostraNotifica('successo', '✅ Accesso effettuato!');
+                    currentUser = data.user;
+                    updateUIAuth();
+                    closeModal();
+                    showAlert('success', '✅ Accesso effettuato con successo!');
                 } else {
-                    mostraNotifica('errore', data.error || 'Credenziali non valide');
+                    showAlert('error', data.error || 'Credenziali non valide');
                 }
             } catch (error) {
-                console.error('Errore login:', error);
-                mostraNotifica('errore', 'Errore di connessione');
+                showAlert('error', 'Errore di connessione');
             }
         }
 
-        async function effettuaRegistrazione() {
-            const nome = document.getElementById('regNome').value;
-            const email = document.getElementById('regEmail').value;
-            const password = document.getElementById('regPassword').value;
-
-            if (!nome || !email || !password) {
-                mostraNotifica('errore', 'Compila tutti i campi');
-                return;
-            }
-
-            if (password.length < 6) {
-                mostraNotifica('errore', 'Password minimo 6 caratteri');
-                return;
-            }
-
+        async function handleRegister(event) {
+            event.preventDefault();
+            
+            const nome = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const azienda = document.getElementById('registerCompany').value;
+            const password = document.getElementById('registerPassword').value;
+            
             try {
                 const response = await fetch(`${API_URL}/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nome, email, password })
+                    body: JSON.stringify({ nome, email, azienda, password })
                 });
-
+                
                 const data = await response.json();
                 
                 if (data.success) {
                     authToken = data.token;
                     localStorage.setItem('authToken', authToken);
-                    utenteCorrente = data.user;
-                    aggiornaInterfacciaUtente();
-                    chiudiModal();
-                    mostraNotifica('successo', '🎉 Registrazione completata! Hai 1 credito gratuito (10 prodotti).');
-                } else {
-                    mostraNotifica('errore', data.error || 'Errore registrazione');
-                }
-            } catch (error) {
-                console.error('Errore registrazione:', error);
-                mostraNotifica('errore', 'Errore di connessione');
-            }
-        }
-
-        async function verificaSessione() {
-            if (!authToken) return;
-            
-            try {
-                const response = await fetch(`${API_URL}/user/profile`, {
-                    headers: { 'Authorization': `Bearer ${authToken}` }
-                });
-                
-                const data = await response.json();
-                if (data.success && data.user) {
-                    utenteCorrente = data.user;
-                    aggiornaInterfacciaUtente();
-                } else {
-                    authToken = '';
-                    localStorage.removeItem('authToken');
-                    utenteCorrente = null;
-                    aggiornaInterfacciaUtente();
-                }
-            } catch (error) {
-                console.log('Sessione non valida');
-            }
-        }
-
-        function aggiornaInterfacciaUtente() {
-            if (utenteCorrente) {
-                document.getElementById('userInfo').style.display = 'block';
-                document.getElementById('userEmail').textContent = utenteCorrente.email;
-                
-                // Gestione crediti
-                if (utenteCorrente.piano === 'free' || utenteCorrente.piano === 'demo') {
-                    document.getElementById('creditiContainer').style.display = 'inline-block';
-                    document.getElementById('userCredits').textContent = utenteCorrente.crediti || '0';
+                    currentUser = data.user;
+                    updateUIAuth();
+                    closeModal();
+                    showAlert('success', `🎁 Registrazione completata! Il tuo TOKEN PROVA è: ${data.trial_token}`);
                     
-                    if (utenteCorrente.crediti === 0) {
-                        mostraNotifica('info', '⚠️ Crediti esauriti! Acquista un piano per continuare.');
-                    }
+                    // Show trial token
+                    document.getElementById('trialTokenInput').style.display = 'block';
+                    document.getElementById('trialToken').value = data.trial_token;
                 } else {
-                    document.getElementById('creditiContainer').innerHTML = 
-                        `✨ Piano <strong>${utenteCorrente.piano.toUpperCase()}</strong>`;
+                    showAlert('error', data.error || 'Errore registrazione');
                 }
-                
-                document.getElementById('btnLogin').style.display = 'none';
-                document.getElementById('btnRegister').style.display = 'none';
-                document.getElementById('btnLogout').style.display = 'inline-block';
-            } else {
-                document.getElementById('userInfo').style.display = 'none';
-                document.getElementById('btnLogin').style.display = 'inline-block';
-                document.getElementById('btnRegister').style.display = 'inline-block';
-                document.getElementById('btnLogout').style.display = 'none';
+            } catch (error) {
+                showAlert('error', 'Errore di connessione');
             }
         }
 
         function logout() {
             authToken = '';
-            utenteCorrente = null;
+            currentUser = null;
             localStorage.removeItem('authToken');
-            aggiornaInterfacciaUtente();
-            mostraNotifica('info', 'Logout effettuato');
-            location.reload();
+            updateUIAuth();
+            showAlert('info', 'Logout effettuato');
         }
 
-        function acquistaPiano(piano) {
-            if (!utenteCorrente) {
-                mostraRegistrazione();
-                mostraNotifica('info', '📝 Registrati per acquistare un piano');
+        // Analyze URL with AI Animation
+        async function analyzeUrl() {
+            const url = document.getElementById('catalogUrl').value.trim();
+            
+            if (!url) {
+                showAlert('error', 'Inserisci un URL valido');
+                return;
+            }
+
+            if (isProcessing) return;
+            isProcessing = true;
+
+            // Start AI analysis animation
+            const btnAnalyze = document.getElementById('btnAnalyze');
+            btnAnalyze.classList.add('loading');
+            document.getElementById('analyzeText').textContent = '⚙️ Analisi AI...';
+            
+            // Show AI analysis box
+            const aiBox = document.getElementById('aiAnalysisBox');
+            aiBox.classList.add('active');
+            
+            // Show steps
+            document.getElementById('aiSteps').classList.add('active');
+            
+            // Animate AI analysis steps
+            const steps = ['step1', 'step2', 'step3', 'step4', 'step5'];
+            let currentStep = 0;
+            
+            // Update AI status
+            document.getElementById('aiStatus').textContent = 'Connessione al catalogo...';
+            
+            // Progress animation
+            const progressBar = document.getElementById('aiProgressBar');
+            let progress = 0;
+            
+            const stepInterval = setInterval(() => {
+                if (currentStep < steps.length) {
+                    // Activate current step
+                    document.getElementById(steps[currentStep]).classList.add('active');
+                    
+                    // Update status based on step
+                    const statusMessages = [
+                        'Analisi struttura catalogo in corso...',
+                        '🌐 Scansione segreta Farfetch, SSENSE, Yoox...',
+                        '📊 AI calcola prezzi di mercato...',
+                        '🧠 CompetitorIntelligence suggerisce strategia...',
+                        '✅ Analisi completata!'
+                    ];
+                    
+                    document.getElementById('aiStatus').textContent = statusMessages[currentStep];
+                    
+                    // Update progress
+                    progress += 20;
+                    progressBar.style.width = progress + '%';
+                    
+                    // Mark step as completed after a delay
+                    setTimeout(() => {
+                        document.getElementById(steps[currentStep - 1]).classList.remove('active');
+                        document.getElementById(steps[currentStep - 1]).classList.add('completed');
+                        document.getElementById(steps[currentStep - 1]).querySelector('.ai-step-icon').textContent = '✓';
+                    }, 500);
+                    
+                    currentStep++;
+                } else {
+                    clearInterval(stepInterval);
+                    
+                    // Make actual API call
+                    analyzeWithAPI(url);
+                }
+            }, 1500);
+        }
+
+        async function analyzeWithAPI(url) {
+            try {
+                const headers = authToken ? { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                } : { 'Content-Type': 'application/json' };
+                
+                const response = await fetch(`${API_URL}/analyze`, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Show strategy suggestion with animation
+                    if (data.suggested_strategy) {
+                        suggestedStrategy = data.suggested_strategy.name;
+                        
+                        // Show suggestion box
+                        const suggestionBox = document.getElementById('strategySuggestion');
+                        suggestionBox.classList.add('active');
+                        
+                        // Update suggestion text
+                        document.getElementById('suggestionText').innerHTML = 
+                            `<strong>CompetitorIntelligence AI</strong> ha analizzato segretamente ${data.suggested_strategy.competitors_checked || 5} competitor.<br>` +
+                            `Basandosi sui prezzi di mercato, suggerisce la strategia <strong>${suggestedStrategy}</strong> ` +
+                            `(${data.suggested_strategy.reason}) con margini del <strong>${data.suggested_strategy.expected_margin}</strong>.`;
+                        
+                        // Animate confidence meter
+                        const confidence = data.suggested_strategy.confidence || 90;
+                        setTimeout(() => {
+                            document.getElementById('confidenceFill').style.width = confidence + '%';
+                            document.getElementById('confidencePercent').textContent = confidence + '%';
+                        }, 100);
+                        
+                        // Highlight suggested strategy card
+                        document.querySelectorAll('.strategy-card').forEach(card => {
+                            card.classList.remove('suggested');
+                        });
+                        document.getElementById(`strategy-${suggestedStrategy}`).classList.add('suggested');
+                    }
+                    
+                    showAlert('success', `✅ Analisi completata! ${data.message}`);
+                } else {
+                    showAlert('error', data.error || 'Analisi fallita');
+                }
+            } catch (error) {
+                showAlert('error', 'Errore durante l\'analisi');
+            } finally {
+                // Reset button
+                const btnAnalyze = document.getElementById('btnAnalyze');
+                btnAnalyze.classList.remove('loading');
+                document.getElementById('analyzeText').textContent = '🔍 Analizza';
+                isProcessing = false;
+            }
+        }
+
+        // Select Strategy
+        function selectStrategy(strategy) {
+            selectedStrategy = strategy;
+            
+            document.querySelectorAll('.strategy-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.getElementById(`strategy-${strategy}`).classList.add('selected');
+        }
+
+        // Start Conversion with Process Animation
+        async function startConversion() {
+            const url = document.getElementById('catalogUrl').value.trim();
+            const trialToken = document.getElementById('trialToken').value.trim();
+            
+            if (!url) {
+                showAlert('error', 'Inserisci l\'URL del catalogo');
                 return;
             }
             
-            const piani = {
-                'base': '€149 - 1000 prodotti singola estrazione',
-                'professional': '€399/mese - Estrazioni illimitate',
-                'enterprise': '€1999/anno - Tutto illimitato con immagini HD'
-            };
+            if (!authToken && !trialToken) {
+                showAlert('error', 'Accedi o inserisci un token di prova per continuare');
+                showModal('register');
+                return;
+            }
+
+            if (isProcessing) return;
+            isProcessing = true;
+
+            // Update button
+            const btnConvert = document.getElementById('btnConvert');
+            btnConvert.classList.add('processing');
+            btnConvert.disabled = true;
+            document.getElementById('convertText').textContent = '⚙️ ELABORAZIONE IN CORSO...';
+
+            // Show process status box
+            const processBox = document.getElementById('processStatusBox');
+            processBox.classList.add('active');
+
+            // Start phase animations
+            animateConversionPhases(url, trialToken);
+        }
+
+        async function animateConversionPhases(url, trialToken) {
+            const phases = [
+                { id: 'phase1', icon: 'phaseIcon1', status: 'phaseStatus1', progress: 'phaseProgress1', duration: 3000 },
+                { id: 'phase2', icon: 'phaseIcon2', status: 'phaseStatus2', progress: 'phaseProgress2', duration: 5000 },
+                { id: 'phase3', icon: 'phaseIcon3', status: 'phaseStatus3', progress: 'phaseProgress3', duration: 4000 },
+                { id: 'phase4', icon: 'phaseIcon4', status: 'phaseStatus4', progress: 'phaseProgress4', duration: 6000 },
+                { id: 'phase5', icon: 'phaseIcon5', status: 'phaseStatus5', progress: 'phaseProgress5', duration: 3000 }
+            ];
+
+            const statusMessages = [
+                'Connessione stabilita con successo',
+                'Trovati ${count} prodotti nel catalogo',
+                'AI sta calcolando prezzi ottimali basati su 5 competitor',
+                'Download immagini HD in corso...',
+                'Generazione Excel professionale...'
+            ];
+
+            // Start API call in parallel
+            const apiPromise = makeConversionRequest(url, trialToken);
+
+            // Animate phases
+            for (let i = 0; i < phases.length; i++) {
+                const phase = phases[i];
+                
+                // Activate phase
+                document.getElementById(phase.id).classList.add('active');
+                document.getElementById(phase.icon).classList.add('spinning');
+                
+                // Update status
+                let statusMsg = statusMessages[i];
+                if (i === 1) {
+                    statusMsg = statusMsg.replace('${count}', Math.floor(Math.random() * 200) + 100);
+                }
+                document.getElementById(phase.status).textContent = statusMsg;
+                
+                // Animate progress bar
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += 5;
+                    document.getElementById(phase.progress).style.width = progress + '%';
+                    
+                    if (progress >= 100) {
+                        clearInterval(progressInterval);
+                        
+                        // Mark as completed
+                        document.getElementById(phase.id).classList.remove('active');
+                        document.getElementById(phase.id).classList.add('completed');
+                        document.getElementById(phase.icon).classList.remove('spinning');
+                        document.getElementById(phase.icon).textContent = '✅';
+                        document.getElementById(phase.status).textContent = 'Completato';
+                    }
+                }, phase.duration / 20);
+                
+                // Wait for phase to complete
+                await new Promise(resolve => setTimeout(resolve, phase.duration));
+            }
+
+            // Wait for API response
+            const result = await apiPromise;
+            handleConversionResult(result);
+        }
+
+        async function makeConversionRequest(url, trialToken) {
+            try {
+                const body = {
+                    url,
+                    strategy: selectedStrategy
+                };
+                
+                if (trialToken) {
+                    body.trial_token = trialToken;
+                }
+                
+                const headers = authToken ? {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                } : { 'Content-Type': 'application/json' };
+                
+                const response = await fetch(`${API_URL}/convert`, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify(body)
+                });
+
+                return await response.json();
+            } catch (error) {
+                return { success: false, error: 'Errore di connessione' };
+            }
+        }
+
+        function handleConversionResult(data) {
+            const btnConvert = document.getElementById('btnConvert');
+            btnConvert.classList.remove('processing');
+            btnConvert.disabled = false;
+            document.getElementById('convertText').textContent = '🚀 GENERA LISTINO B2B PROFESSIONALE';
+            isProcessing = false;
+
+            if (data.success) {
+                currentDownloadUrl = data.download_url;
+                
+                // Show success with stats
+                let successMsg = '✅ Conversione completata con successo!\n\n';
+                if (data.stats) {
+                    successMsg += `📊 Statistiche:\n`;
+                    successMsg += `• Prodotti elaborati: ${data.stats.products_count}\n`;
+                    successMsg += `• Valore totale: ${data.stats.total_value}\n`;
+                    successMsg += `• Sconto medio: ${data.stats.average_discount}\n`;
+                    if (data.stats.ai_analysis) {
+                        successMsg += `• 🤖 AI CompetitorIntelligence applicata\n`;
+                    }
+                }
+                
+                showAlert('success', successMsg);
+                
+                // Auto download
+                window.open(`http://194.5.152.208:5000${currentDownloadUrl}`, '_blank');
+            } else {
+                showAlert('error', data.error || 'Conversione fallita');
+            }
+        }
+
+        // Modal Management
+        function showModal(type) {
+            document.getElementById('authModal').classList.add('active');
+            switchTab(type);
+        }
+
+        function closeModal() {
+            document.getElementById('authModal').classList.remove('active');
+        }
+
+        function switchTab(tab) {
+            if (tab === 'login') {
+                document.getElementById('tabLogin').classList.add('active');
+                document.getElementById('tabRegister').classList.remove('active');
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('registerForm').style.display = 'none';
+                document.getElementById('modalTitle').textContent = 'Accedi';
+                document.getElementById('modalSubtitle').textContent = 'Accedi per continuare';
+            } else {
+                document.getElementById('tabLogin').classList.remove('active');
+                document.getElementById('tabRegister').classList.add('active');
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('registerForm').style.display = 'block';
+                document.getElementById('modalTitle').textContent = 'Registrati';
+                document.getElementById('modalSubtitle').textContent = 'Crea il tuo account gratuito';
+            }
+        }
+
+        // Select Plan
+        async function selectPlan(plan) {
+            if (!currentUser) {
+                showModal('register');
+                return;
+            }
             
-            mostraNotifica('info', `🚀 Piano ${piano.toUpperCase()}: ${piani[piano]}`);
+            try {
+                const response = await fetch(`${API_URL}/checkout`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({ plan })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.checkout_url) {
+                    window.location.href = data.checkout_url;
+                } else {
+                    showAlert('error', 'Errore creazione checkout');
+                }
+            } catch (error) {
+                showAlert('error', 'Errore di connessione');
+            }
+        }
+
+        // Show Trial Input
+        function showTrialInput() {
+            const input = document.getElementById('trialTokenInput');
+            input.style.display = input.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Alert System
+        function showAlert(type, message) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.className = `alert alert-${type} show`;
+            alertBox.textContent = message;
             
-            // Redirect a checkout
             setTimeout(() => {
-                window.location.href = `${API_URL}/create-checkout?piano=${piano}&token=${authToken}`;
-            }, 2000);
-        }
-
-        function setRicarico(valore) {
-            document.getElementById('ricarico').value = valore;
-        }
-
-        function scrollToExtractor() {
-            document.getElementById('pannelloEstrazione').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function mostraLogin() {
-            document.getElementById('modalAuth').classList.add('active');
-            switchToLogin();
-        }
-
-        function mostraRegistrazione() {
-            document.getElementById('modalAuth').classList.add('active');
-            switchToRegister();
-        }
-
-        function chiudiModal() {
-            document.getElementById('modalAuth').classList.remove('active');
-        }
-
-        function switchToLogin() {
-            document.getElementById('formLogin').style.display = 'block';
-            document.getElementById('formRegistrazione').style.display = 'none';
-            document.getElementById('modalTitle').textContent = 'Accedi al tuo Account';
-        }
-
-        function switchToRegister() {
-            document.getElementById('formLogin').style.display = 'none';
-            document.getElementById('formRegistrazione').style.display = 'block';
-            document.getElementById('modalTitle').textContent = 'Crea il tuo Account';
-        }
-
-        function mostraNotifica(tipo, messaggio) {
-            const notifica = document.getElementById('notifica');
-            notifica.className = `notifica ${tipo} show`;
-            notifica.innerHTML = messaggio;
-            setTimeout(() => notifica.classList.remove('show'), 5000);
+                alertBox.classList.remove('show');
+            }, 5000);
         }
     </script>
 </body>
